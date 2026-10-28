@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sesión 1 · Fundamentos de SIG</title>
+<link rel="stylesheet" href="diapositivas.css">
+</head>
+<body>
+<div id="escenario"><div id="lienzo">
+
+<!-- 1 -->
+<section class="diapo oscura" style="justify-content:center">
+  <svg style="position:absolute;right:0;top:0" width="760" height="900" viewBox="0 0 860 1080" aria-hidden="true">
+    <g fill="none" stroke="#f0a060" stroke-width="2">
+      <path opacity=".25" d="M430,20 C820,20 976,358 950,592 C924,878 664,1060 378,1034 C66,1008 -116,748 -64,462 C-12,150 170,20 430,20 Z"/>
+      <path opacity=".35" d="M430,120 C745,120 871,393 850,582 C829,813 619,960 388,939 C136,918 -11,708 31,477 C73,225 220,120 430,120 Z"/>
+      <path opacity=".45" d="M430,210 C677,210 776,424 760,573 C743,754 578,870 397,853 C199,837 83,672 116,490 C149,292 265,210 430,210 Z"/>
+      <path opacity=".6" d="M430,290 C617,290 692,452 680,565 C667,702 542,790 405,777 C255,765 167,640 192,502 C217,352 305,290 430,290 Z"/>
+      <path opacity=".75" d="M430,360 C565,360 619,477 610,558 C601,657 511,720 412,711 C304,702 241,612 259,513 C277,405 340,360 430,360 Z"/>
+      <path opacity=".9" d="M430,420 C520,420 556,498 550,552 C544,618 484,660 418,654 C346,648 304,588 316,522 C328,450 370,420 430,420 Z"/>
+    </g>
+    <circle cx="430" cy="540" r="10" fill="#f0a060"/>
+  </svg>
+  <p class="ceja">Fundamentos de SIG · Sesión 1</p>
+  <h1 style="max-width:820px">¿Qué es un SIG y cómo representa el mundo?</h1>
+  <p class="chica" style="font-size:26px">Especialización en SIG · Universidad de Manizales</p>
+</section>
+
+<!-- 2 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Agenda · 3 horas</p><h2>La ruta de hoy</h2></div>
+  <table class="t">
+    <tr><th style="width:18%">Hora</th><th>Tema</th><th style="width:28%">Formato</th></tr>
+    <tr><td>0:00</td><td>Geomática, dato, componentes, funciones e historia de los SIG</td><td>Teoría</td></tr>
+    <tr class="marca"><td>0:45</td><td>Fuentes y formatos de datos · geoportal de Manizales</td><td>Teoría y demostración</td></tr>
+    <tr><td>1:15</td><td>Descanso</td><td></td></tr>
+    <tr class="marca"><td>1:25</td><td>Discreto y continuo, geometrías, escala</td><td>Teoría y demostración</td></tr>
+    <tr class="marca"><td>2:05</td><td>Tablas de atributos y ráster</td><td>Teoría y demostración</td></tr>
+    <tr><td>2:45</td><td>Repaso para el Cuestionario 1</td><td>Repaso</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Punto de partida</p><h2>Casi toda decisión importante tiene un «dónde»</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top"><h3>¿Dónde construir un centro de salud?</h3></div>
+    <div class="tarjeta top"><h3>¿Qué barrios están en zona de deslizamiento?</h3></div>
+    <div class="tarjeta top"><h3>¿Por dónde se propaga un brote de dengue?</h3></div>
+  </div>
+  <div class="destacado">Ninguna se responde con una tabla sola: todas necesitan saber <b>dónde están las cosas</b>. Para eso existen los SIG.</div>
+  <aside class="tip">Piense en su propio trabajo: ¿qué decisión depende de dónde ocurren las cosas? Esa pregunta puede ser el punto de partida de un mapa propio.</aside>
+</section>
+
+<!-- 4 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Unidad 1 · Geomática</p><h2>Geo + informática</h2></div>
+  <div class="fila">
+    <div class="col f1">
+      <p>La geomática reúne las disciplinas que <b>miden, capturan, almacenan, analizan y publican</b> información de la superficie terrestre.</p>
+      <p>Se apoya en el <b>pensamiento espacial</b>: la habilidad de ubicar, imaginar y relacionar objetos en el espacio.</p>
+      <p class="chica">El término nació en Francia a finales de los años 60 y se difundió en Canadá en los 80.</p>
+    </div>
+    <div class="rejilla2" style="width:700px">
+      <div class="tarjeta"><b>Cartografía</b></div><div class="tarjeta"><b>Fotogrametría</b></div>
+      <div class="tarjeta"><b>Teledetección</b></div><div class="tarjeta"><b>GPS / GNSS</b></div>
+      <div class="tarjeta"><b>Geoestadística</b></div><div class="tarjeta oscura-t"><b>SIG</b></div>
+    </div>
+  </div>
+  <aside class="tip">La geomática es el término general y el SIG es una de sus herramientas. Las otras disciplinas de la geomática son la cartografía, la fotogrametría, la teledetección, el GPS y la geoestadística. Para profundizar: «Sistemas de Información Geográfica», de Víctor Olaya, capítulo 1 (libro gratuito).</aside>
+</section>
+
+<!-- 5 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Del dato a la decisión</p><h2>Un dato espacial es cualquier dato que incluye la ubicación</h2></div>
+  <div class="fila centro">
+    <div class="tarjeta f1"><h3>Dato</h3>Un valor suelto: «US7832N», «4°43' N»</div>
+    <div class="num">→</div>
+    <div class="tarjeta f1"><h3>Procesamiento</h3>Clasificar, filtrar, analizar con un objetivo</div>
+    <div class="num">→</div>
+    <div class="tarjeta f1"><h3>Información</h3>Pendientes, cuencas, zonas de riesgo</div>
+    <div class="num">→</div>
+    <div class="tarjeta oscura-t f1"><h3>Decisión</h3>Dónde construir, qué prohibir</div>
+  </div>
+  <p><span class="examen">CUESTIONARIO 1 · P2</span>&nbsp; «Los datos espaciales incluyen información sobre la ubicación de un elemento o fenómeno» → <b>Verdadero</b>.</p>
+  <aside class="tip">Dato espacial = dato + ubicación. «Hospital» es un dato; «Hospital en 5,06° N y 75,50° O» es un dato espacial. Un dato se vuelve información cuando se procesa con un objetivo.</aside>
+</section>
+
+<!-- 6 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Unidad 2 · Componentes</p><h2>Un SIG no es un programa: es un sistema</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top"><h3>Hardware</h3>Computadores, GPS, servidores, impresoras</div>
+    <div class="tarjeta top"><h3>Software</h3>QGIS, ArcGIS: operan y analizan los datos</div>
+    <div class="tarjeta top"><h3>Datos</h3>Geometría + tabla de atributos, manejadas juntas</div>
+    <div class="tarjeta top"><h3>Métodos</h3>Procedimientos, normas, manuales</div>
+    <div class="tarjeta top"><h3>Personas</h3>Formulan la pregunta e interpretan</div>
+    <div class="tarjeta oscura-t"><h3>Si falla uno…</h3>…el SIG no sirve: el mejor software con datos malos da mapas malos.</div>
+  </div>
+  <aside class="tip">Para recordar los cinco componentes: Hardware, Software, Datos, Métodos y Personas. Algunos autores agregan la red (internet) y el factor organizativo.</aside>
+</section>
+
+<!-- 6b -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Qué hace un SIG</p><h2>Cinco funciones, del dato al mapa</h2></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px">
+    <div class="tarjeta top"><div class="num">1</div><h3>Captura</h3>GPS, imágenes, dibujo sobre el mapa, tablas</div>
+    <div class="tarjeta top"><div class="num">2</div><h3>Almacena&shy;miento</h3>Geometría y atributos guardados juntos</div>
+    <div class="tarjeta top"><div class="num">3</div><h3>Consulta</h3>¿Qué hay aquí? ¿Dónde está esto?</div>
+    <div class="tarjeta top"><div class="num">4</div><h3>Análisis</h3>Medir, cruzar capas, calcular</div>
+    <div class="tarjeta oscura-t"><div class="num" style="color:#f0a060">5</div><h3>Salida</h3>Mapas, tableros, servicios web</div>
+  </div>
+  <div class="destacado">Un programa de dibujo hace mapas bonitos. Un SIG, además, <b>responde preguntas</b>: esa es la diferencia.</div>
+  <aside class="tip">Un ejemplo completo: un GPS toma la ubicación de un árbol (captura), se guarda en una capa (almacenamiento), se busca en qué barrio está (consulta), se cuenta cuántos árboles hay por barrio (análisis) y se publica un mapa (salida).</aside>
+</section>
+
+<!-- 6c -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Unidad 1 · Conceptos básicos</p><h2>Cómo organiza un SIG la información</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Por capas (cartografía)</h3>Cada capa es un tema: vías, ríos, predios, bosques. Se apilan como hojas transparentes.</div>
+    <div class="tarjeta verde"><h3>Bases de datos espaciales</h3>La base de datos entiende la geometría. En el curso usamos QGIS con archivos GeoPackage.</div>
+  </div>
+  <table class="t">
+    <tr><th style="width:26%">Concepto</th><th>Qué es</th><th style="width:30%">Ejemplo</th></tr>
+    <tr><td><b>Entidad geográfica</b></td><td>El objeto del mundo real que se guarda</td><td>Un colegio</td></tr>
+    <tr><td><b>Atributo</b></td><td>Sus características</td><td>Nombre, número de estudiantes</td></tr>
+    <tr><td><b>Figura geográfica</b></td><td>Cómo se dibuja en el mapa</td><td>Punto, línea o polígono</td></tr>
+  </table>
+  <aside class="tip">Piense en las capas como hojas transparentes apiladas. La tabla entidad–atributo–figura describe cualquier objeto: el río Chinchiná es la entidad, su longitud es un atributo y la línea es su figura.</aside>
+</section>
+
+<!-- 7 -->
+<section class="diapo acento">
+  <div class="fila centro" style="height:100%">
+    <div class="col f1">
+      <p class="ceja">Londres, 1854</p>
+      <h2>John Snow ubicó las muertes por cólera en un mapa y encontró la bomba de agua contaminada</h2>
+      <p>Pasó del mapa que describe al mapa que <b>explica</b>: el nacimiento del análisis espacial y de la epidemiología moderna.</p>
+    </div>
+    <div class="col" style="width:520px">
+      <svg width="520" height="520" viewBox="0 0 600 600" aria-label="Esquema: muertes agrupadas alrededor de una bomba de agua">
+        <rect width="600" height="600" rx="24" fill="#8c4314"/>
+        <path d="M0 110H600M0 230H600M0 370H600M0 490H600M120 0V600M250 0V600M380 0V600M500 0V600" stroke="#b9692f" stroke-width="16"/>
+        <g fill="#12303a">
+          <rect x="263" y="219" width="10" height="7"/><rect x="277" y="219" width="10" height="7"/><rect x="291" y="219" width="10" height="7"/><rect x="305" y="219" width="10" height="7"/><rect x="319" y="219" width="10" height="7"/><rect x="333" y="219" width="10" height="7"/>
+          <rect x="263" y="233" width="10" height="7"/><rect x="291" y="233" width="10" height="7"/><rect x="319" y="233" width="10" height="7"/><rect x="203" y="219" width="10" height="7"/><rect x="405" y="219" width="10" height="7"/>
+          <rect x="246" y="258" width="7" height="10"/><rect x="246" y="272" width="7" height="10"/><rect x="246" y="286" width="7" height="10"/><rect x="246" y="300" width="7" height="10"/><rect x="246" y="314" width="7" height="10"/>
+          <rect x="376" y="258" width="7" height="10"/><rect x="376" y="272" width="7" height="10"/><rect x="376" y="286" width="7" height="10"/><rect x="376" y="300" width="7" height="10"/><rect x="376" y="326" width="7" height="10"/>
+          <rect x="281" y="366" width="10" height="7"/><rect x="295" y="366" width="10" height="7"/><rect x="309" y="366" width="10" height="7"/><rect x="323" y="366" width="10" height="7"/><rect x="295" y="380" width="10" height="7"/>
+          <rect x="295" y="106" width="10" height="7"/><rect x="465" y="366" width="10" height="7"/><rect x="116" y="296" width="7" height="10"/>
+        </g>
+        <circle cx="314" cy="300" r="18" fill="#fbf6ee" stroke="#12303a" stroke-width="5"/>
+      </svg>
+      <p class="chica" style="color:#fbf6ee">Esquema ilustrativo · círculo: bomba de Broad Street</p>
+    </div>
+  </div>
+  <aside class="tip">Para ver el mapa original de John Snow, busque «John Snow cholera map 1854». Este caso se considera el inicio del análisis espacial y de la epidemiología moderna.</aside>
+</section>
+
+<!-- 8 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Historia</p><h2>Del mapa en papel al SIG en el celular</h2></div>
+  <div class="linea-tiempo">
+    <div class="hito"><div class="anio">1826</div><b>Dupin</b>Primer mapa de coropletas</div>
+    <div class="hito"><div class="anio">1854</div><b>Snow</b>Mapa del cólera</div>
+    <div class="hito"><div class="anio">1963</div><b>CGIS</b>Tomlinson: primer SIG, en Canadá</div>
+    <div class="hito"><div class="anio">1964</div><b>SYMAP</b>Harvard: mapas por computador</div>
+    <div class="hito"><div class="anio">1969</div><b>GRID</b>Datos en celdas: origen del ráster</div>
+    <div class="hito"><div class="anio">1972</div><b>Landsat 1</b>Primer satélite civil de recursos</div>
+    <div class="hito b"><div class="anio">1981</div><b>ARC/INFO</b>Esri: SIG comercial</div>
+    <div class="hito b"><div class="anio">1982</div><b>GRASS</b>SIG de dominio público</div>
+    <div class="hito b"><div class="anio">1986</div><b>SPOT-1</b>Satélite francés</div>
+    <div class="hito b"><div class="anio">2000</div><b>SRTM</b>Elevación casi global</div>
+    <div class="hito b"><div class="anio">2002</div><b>QGIS</b>El SIG libre que usamos</div>
+    <div class="hito b"><div class="anio">2005</div><b>Google Maps</b>El mapa llega a todos</div>
+  </div>
+  <aside class="tip">No hace falta memorizar fechas. Lo importante: los SIG nacieron en los años sesenta (Canadá, Roger Tomlinson), se volvieron comerciales en los ochenta y se masificaron con internet y los celulares.</aside>
+</section>
+
+<!-- 8b -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Fuentes de datos</p><h2>¿De dónde salen los datos espaciales?</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top"><h3>GPS / GNSS</h3>La posición de un punto en campo</div>
+    <div class="tarjeta top"><h3>Topografía</h3>Mediciones precisas con estación total</div>
+    <div class="tarjeta top"><h3>Fotogrametría y drones</h3>Medidas desde fotos aéreas: ortofotos</div>
+    <div class="tarjeta verde"><h3>Teledetección</h3>Imágenes de satélite divididas en <b>bandas espectrales</b></div>
+    <div class="tarjeta verde"><h3>LiDAR</h3>Láser desde un avión: una nube de millones de puntos con altura</div>
+    <div class="tarjeta verde"><h3>Digitalización y tablas</h3>Dibujar sobre el mapa; convertir direcciones en puntos</div>
+  </div>
+  <div class="destacado"><b>Banda</b>: cada parte del espectro que capta un sensor. Cada banda se guarda como un ráster.</div>
+  <aside class="tip">Una banda espectral es una «franja» de la luz que capta el sensor de un satélite, incluidas algunas invisibles para el ojo, como el infrarrojo. Cada banda se guarda como un ráster aparte. El LiDAR, en cambio, produce nubes de puntos con altura.</aside>
+</section>
+
+<!-- 8c -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Formatos</p><h2>Los archivos que van a encontrar</h2></div>
+  <table class="t">
+    <tr><th style="width:30%">Formato</th><th style="width:16%">Modelo</th><th>Para tener en cuenta</th></tr>
+    <tr><td><b>Shapefile</b> (.shp)</td><td>Vector</td><td>Son varios archivos juntos (.shp, .dbf, .shx, .prj); sin el .prj no sabe dónde está</td></tr>
+    <tr class="marca"><td><b>GeoPackage</b> (.gpkg)</td><td>Vector y ráster</td><td>Un solo archivo; el recomendado</td></tr>
+    <tr><td><b>GeoJSON</b>, <b>KML</b></td><td>Vector</td><td>Texto; muy usados en la web y en Google Earth</td></tr>
+    <tr><td><b>GeoTIFF</b> (.tif)</td><td>Ráster</td><td>Una imagen que sabe dónde está</td></tr>
+    <tr><td><b>Servicios web</b> (WMS, WFS, ArcGIS REST)</td><td>Ambos</td><td>Se ven en QGIS sin descargar nada</td></tr>
+  </table>
+  <aside class="tip">Si recibe un shapefile, revise que vengan juntos, con el mismo nombre, al menos los archivos .shp, .shx, .dbf y .prj. Si falta uno, la capa no abre o queda mal ubicada. El shapefile solo guarda datos vectoriales.</aside>
+</section>
+
+<!-- 8d -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración · geoportal de Manizales</p><h2>Del visor web a QGIS</h2></div>
+  <ol class="pasos">
+    <li>Abrir el visor público <a href="https://sig.manizales.gov.co/app/Consulta%20Cartogr%C3%A1fica%20Tem%C3%A1tica%20POT%20Urbano-WEB_2022-NEW/" target="_blank" rel="noopener" style="color:#1f6e67;font-weight:600">«Consulta Cartografía Temática POT Urbano»</a> (clic para abrir).</li>
+    <li>Encender capas del POT: perímetro urbano, equipamientos, amenaza por deslizamiento.</li>
+    <li>Hacer clic sobre un predio para ver sus atributos y medir una distancia.</li>
+    <li>En QGIS: Navegador › <b>Servidores REST ArcGIS</b> › Nueva conexión › <code>https://sig.manizales.gov.co/wadmzl/rest/services</code></li>
+  </ol>
+  <aside class="tip">Un geoportal es la página web donde una entidad publica sus mapas y datos. En Colombia están Colombia en Mapas (IGAC) y los geoportales de Manizales, Medellín (GeoMedellín), Cali (IDESC) y Pereira.</aside>
+</section>
+
+<!-- 8e -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Más fuentes · servidores públicos</p><h2>Datos oficiales de otras ciudades en QGIS</h2></div>
+  <table class="t" style="font-size:23px">
+    <tr><th style="width:24%">Entidad</th><th>Dirección (Servidores REST ArcGIS › Nueva conexión)</th><th style="width:24%">Qué tiene</th></tr>
+    <tr class="marca"><td><b>Alcaldía de Manizales</b></td><td><code>https://sig.manizales.gov.co/wadmzl/rest/services</code></td><td>POT, catastro, ortofotos</td></tr>
+    <tr><td><b>Alcaldía de Medellín</b></td><td><code>https://www.medellin.gov.co/servidormapas/rest/services</code></td><td>Ambiente, cultura, turismo</td></tr>
+    <tr><td><b>Bogotá · Catastro</b></td><td><code>https://serviciosgis.catastrobogota.gov.co/arcgis/rest/services</code></td><td>Catastro, educación, emergencias</td></tr>
+    <tr><td><b>IGAC</b> (todo el país)</td><td><code>https://mapas.igac.gov.co/server/rest/services</code></td><td>Cartografía, suelos, límites</td></tr>
+    <tr><td><b>Servicio Geológico Colombiano</b></td><td><code>https://srvags.sgc.gov.co/arcgis/rest/services</code></td><td>Amenaza sísmica y volcánica</td></tr>
+  </table>
+  <div class="destacado">Para ir a cualquier lugar del mapa base: buscador de QGIS (abajo a la izquierda, <b>Ctrl + K</b>) › escribir <b>&gt; Pereira</b>.</div>
+  <aside class="tip">Para encontrar más servidores, busque «geoportal» y el nombre de la ciudad o entidad, y dentro del geoportal la sección «Servicios web» o «ArcGIS REST». El catálogo nacional es Colombia en Mapas (colombiaenmapas.gov.co), del IGAC. Para más mapas base, instale el complemento QuickMapServices.</aside>
+</section>
+
+<!-- 9 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Naturaleza de los fenómenos</p><h2>Discreto o continuo</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Discreto</h3>Tiene bordes claros; se puede contar uno por uno.<br><span class="chica">Vías, servicios públicos, direcciones, zonas electorales, tipos de suelo, hidrografía</span></div>
+    <div class="tarjeta verde"><h3>Continuo</h3>Cambia gradualmente; hay un valor en cada punto.<br><span class="chica">Temperatura del mar, lluvia anual, pendiente, profundidad del océano</span></div>
+  </div>
+  <div class="destacado">Regla práctica: si tiene sentido <b>sacar un promedio</b> (temperatura, altura), el fenómeno es continuo. Promediar códigos de zonas electorales no tiene sentido.</div>
+  <p><span class="examen">CUESTIONARIO 1 · P4, P6, P12</span></p>
+  <aside class="tip">Truco: pregúntese si tiene sentido sacar un promedio. Si lo tiene (temperatura, altura, lluvia), el fenómeno es continuo. Si no (zonas electorales, tipos de suelo), es discreto.</aside>
+</section>
+
+<!-- 10 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Ejemplo resuelto</p><h2>Clasifiquemos el mundo</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta verde"><h3>Continuos · ráster</h3>Temperatura del mar, lluvia anual, pendiente del terreno, profundidad del océano</div>
+    <div class="tarjeta top"><h3>Discretos · punto</h3>Hidrantes, postes, direcciones de vivienda</div>
+    <div class="tarjeta top"><h3>Discretos · línea</h3>Vías, redes de acueducto</div>
+    <div class="tarjeta top"><h3>Discretos · polígono</h3>Zonas electorales, barrios, tipos de suelo, cobertura vegetal</div>
+  </div>
+  <div class="destacado">Depende de la escala: el <b>Hospital de Caldas</b>, el <b>río Cauca</b> y el <b>Parque Caldas</b> son punto o línea en un mapa de Colombia y polígono en un plano de Manizales.</div>
+  <aside class="tip">Practique esta clasificación en el ejercicio 1 de la página del curso: le dice al instante cuáles respuestas están bien.</aside>
+</section>
+
+<!-- 11 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Modelo vectorial</p><h2>Tres geometrías, contadas en vértices</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top">
+      <svg width="300" height="130" viewBox="0 0 300 130"><circle cx="150" cy="65" r="14" fill="#a8531a"/></svg>
+      <h3>Punto · 1 vértice</h3>Árboles, pozos, direcciones
+    </div>
+    <div class="tarjeta top">
+      <svg width="300" height="130" viewBox="0 0 300 130"><polyline points="20,100 100,40 180,80 280,30" fill="none" stroke="#1f7a72" stroke-width="6"/><g fill="#12303a"><circle cx="20" cy="100" r="8"/><circle cx="100" cy="40" r="8"/><circle cx="180" cy="80" r="8"/><circle cx="280" cy="30" r="8"/></g></svg>
+      <h3>Línea · 2 o más vértices</h3>Vías, tuberías, ríos a escala pequeña
+    </div>
+    <div class="tarjeta top">
+      <svg width="300" height="130" viewBox="0 0 300 130"><polygon points="60,110 40,40 150,15 260,50 230,115" fill="#a9cfc9" stroke="#1f7a72" stroke-width="5"/><g fill="#12303a"><circle cx="60" cy="110" r="8"/><circle cx="40" cy="40" r="8"/><circle cx="150" cy="15" r="8"/><circle cx="260" cy="50" r="8"/><circle cx="230" cy="115" r="8"/></g></svg>
+      <h3>Polígono · 3 o más, cerrado</h3>Predios, lagos, barrios
+    </div>
+  </div>
+  <p><span class="examen">CUESTIONARIO 1 · P13 &nbsp;·&nbsp; CUESTIONARIO 3 · P6, P8</span>&nbsp; Una línea son <b>dos o más vértices conectados</b>.</p>
+  <aside class="tip">Punto = 1 vértice. Línea = 2 o más vértices conectados. Polígono = 3 o más vértices, cerrado (el primero y el último coinciden). Un polígono tiene área; una línea solo tiene longitud.</aside>
+</section>
+
+<!-- 11b -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS</p><h2>Dibujar un punto, una línea y un polígono</h2></div>
+  <ol class="pasos">
+    <li>Mapa base: Navegador › <b>Teselas XYZ</b> › doble clic en <b>OpenStreetMap</b>.</li>
+    <li><b>Capa › Crear capa › Nueva capa GeoPackage</b>: tipo Punto, SRC EPSG:9377, campo <code>nombre</code>.</li>
+    <li>Lápiz de edición › añadir un punto en la Universidad de Manizales: <b>1 vértice</b>.</li>
+    <li>Repetir con una capa de línea (una calle: <b>2 o más vértices</b>) y una de polígono (una manzana: <b>3 o más, cerrado</b>).</li>
+  </ol>
+  <aside class="tip">Digitalizar es dibujar objetos sobre un mapa o una imagen. Al terminar cada objeto, QGIS pide sus atributos: esos son atributos definidos por el usuario. No olvide guardar la edición antes de apagar el lápiz.</aside>
+</section>
+
+<!-- 12 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Escala y geometría</p><h2>La escala decide la geometría</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta verde"><h3>Escala grande · 1:10.000</h3>Zoom cercano, mucho detalle, área pequeña. Los objetos ocupan área → <b>polígonos</b>.</div>
+    <div class="tarjeta top"><h3>Escala pequeña · 1:1.000.000</h3>Vista lejana, área enorme, se simplifica → <b>puntos y líneas</b>.</div>
+  </div>
+  <table class="t">
+    <tr><th>Caso</th><th>Escala</th><th>Geometría</th></tr>
+    <tr><td>Río Sena en París, con puentes y muelles</td><td>Grande</td><td><b>Polígono</b></td></tr>
+    <tr><td>Excavaciones de 5 m² cerca de Stonehenge</td><td>Grande</td><td><b>Polígono</b></td></tr>
+    <tr><td>Sitios UNESCO en un mapa del mundo</td><td>Pequeña</td><td><b>Punto</b></td></tr>
+    <tr><td>Vías nacionales de Colombia</td><td>Pequeña</td><td><b>Línea</b></td></tr>
+  </table>
+  <aside class="tip">Escala grande = fracción grande = mucho detalle de un área pequeña (por ejemplo 1:5.000). Escala pequeña = fracción pequeña = poco detalle de un área grande (por ejemplo 1:1.000.000). Es lo contrario de lo que parece.</aside>
+</section>
+
+<!-- 12b -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Frases con trampa · Cuestionario 1 · P5 y P6</p><h2>¿Verdadero o falso?</h2></div>
+  <table class="t">
+    <tr><th>Frase</th><th style="width:15%">Respuesta</th><th style="width:34%">Por qué</th></tr>
+    <tr><td>Los parques urbanos se representan con polígonos a <b>escalas pequeñas</b>.</td><td><b>Falso</b></td><td>Son polígonos a escala <b>grande</b>.</td></tr>
+    <tr><td>Las ciudades se representan como puntos a <b>grandes escalas</b>.</td><td><b>Falso</b></td><td>Son puntos a escala <b>pequeña</b>.</td></tr>
+    <tr><td>Los elementos reales se representan con punto, línea o polígono a diferentes escalas.</td><td><b>Verdadero</b></td><td>La escala decide cuál.</td></tr>
+    <tr><td>Cada elemento del mundo real se puede representar con punto, línea o polígono.</td><td><b>Verdadero</b></td><td>Siempre hay una de las tres.</td></tr>
+  </table>
+  <div class="destacado">Se representan de forma <b>continua</b>: la temperatura y la profundidad del océano. La hidrografía y la cobertura vegetal se manejan como elementos discretos.</div>
+  <aside class="tip">La trampa más común es cambiar «grande» por «pequeña». Antes de responder, pregúntese: a esa escala, ¿el objeto se vería con área o solo como un punto?</aside>
+</section>
+
+<!-- 13 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 2</p><h2>La escala cambia la geometría</h2></div>
+  <ol class="pasos">
+    <li>Cargar <code>Paises_Mundo</code>, <code>Ciudades_Mundo</code> e <code>Hidrografia_Mundo</code> (carpeta DATA MUNDO). Mirar la escala en la barra de estado.</li>
+    <li>¿Por qué Bogotá es un punto y el Amazonas una línea?</li>
+    <li>Cargar <code>comunas.geojson</code> y <code>perimetro_urbano.geojson</code> (carpeta datos_reales) y acercar hasta Manizales.</li>
+    <li>A esta escala Manizales ya no es un punto: es un polígono con sus comunas.</li>
+  </ol>
+  <aside class="tip">En QGIS la escala actual aparece en la barra de estado, en la parte de abajo de la ventana. Haga zoom y observe cómo cambia el número.</aside>
+</section>
+
+<!-- 14 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Tabla de atributos</p><h2>Una fila = un objeto, no un vértice</h2></div>
+  <div class="fila">
+    <table class="t f1">
+      <tr><th>FID</th><th>Geometría</th><th>Nombre</th><th>Área (auto)</th></tr>
+      <tr><td>0</td><td>Polígono · miles de vértices</td><td>Colombia</td><td>calculada</td></tr>
+      <tr><td>1</td><td>Polígono · miles de vértices</td><td>Ecuador</td><td>calculada</td></tr>
+      <tr><td>2</td><td>Polígono · miles de vértices</td><td>Perú</td><td>calculada</td></tr>
+    </table>
+    <div class="col" style="width:520px">
+      <div class="tarjeta top"><h3>Automáticos</h3>Identificador, geometría, área, longitud</div>
+      <div class="tarjeta verde"><h3>Del usuario</h3>Nombre, categoría, estrato, población</div>
+    </div>
+  </div>
+  <p><span class="examen">CUESTIONARIO 1 · P3, P7 &nbsp;·&nbsp; CUESTIONARIO 3 · P1</span>&nbsp; Atributos automáticos o del usuario → <b>Verdadero</b>. Una fila es un vértice → <b>Falso</b>.</p>
+  <aside class="tip">Cada fila = un objeto; cada columna = un atributo. Los atributos automáticos (identificador, área, longitud) los calcula el programa; los del usuario (nombre, tipo, población) los escribe una persona.</aside>
+</section>
+
+<!-- 15 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 3</p><h2>Anatomía de una tabla de atributos</h2></div>
+  <ol class="pasos">
+    <li>Abran la tabla de <code>Paises_Mundo</code>: ¿cuántas filas hay? Seleccionen Colombia.</li>
+    <li>Calculadora de campos → campo virtual <code>vertices</code> = <code>num_points($geometry)</code>. ¿Cuántos vértices tiene Colombia? ¿En cuántas filas?</li>
+    <li>Campo <code>area_km2</code> = <code>$area / 1000000</code> → atributo <b>automático</b>.</li>
+    <li>Campo <code>continente</code> escrito a mano en 3 países → atributo <b>del usuario</b>.</li>
+  </ol>
+  <aside class="tip">La calculadora de campos (icono del ábaco) crea atributos con fórmulas: $area calcula el área y num_points($geometry) cuenta los vértices de cada objeto. Practíquelo en el ejercicio 3.</aside>
+</section>
+
+<!-- 16 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Modelo ráster</p><h2>Una malla de celdas iguales, cada una con un valor</h2></div>
+  <div class="fila centro">
+    <svg width="460" height="322" viewBox="0 0 360 252" aria-label="Malla ráster con valores de elevación">
+      <rect width="360" height="252" fill="#eadfc9"/>
+      <g fill="#c99a6b"><rect x="72" y="36" width="216" height="180"/><rect x="36" y="72" width="36" height="108"/><rect x="288" y="72" width="36" height="72"/></g>
+      <g fill="#7a4320"><rect x="144" y="72" width="72" height="108"/><rect x="216" y="108" width="36" height="72"/></g>
+      <path d="M36 0V252M72 0V252M108 0V252M144 0V252M180 0V252M216 0V252M252 0V252M288 0V252M324 0V252M0 36H360M0 72H360M0 108H360M0 144H360M0 180H360M0 216H360" stroke="#fbf8f2" stroke-width="2"/>
+    </svg>
+    <div class="col f1">
+      <p>• <b>Cada celda (píxel) tiene un valor</b>: altura, temperatura, color.</p>
+      <p>• Todas las celdas son <b>del mismo tamaño</b>: la <b>resolución</b>.</p>
+      <p>• Los valores vienen del sensor o del cálculo, <b>no los define el usuario</b>.</p>
+      <p>• Para manejar cientos de imágenes juntas: <b>mosaic dataset</b> (ArcGIS).</p>
+    </div>
+  </div>
+  <p><span class="examen">CUESTIONARIO 1 · P10, P11, P14, P16</span></p>
+  <aside class="tip">Resolución = tamaño de la celda. Una imagen de 10 m tiene celdas de 10 × 10 m: tiene más detalle que una de 30 m, pero pesa más. El «mosaic dataset» es una estructura de ArcGIS para manejar muchas imágenes ráster juntas.</aside>
+</section>
+
+<!-- 16b -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · un ráster real</p><h2>Manizales en 2014 y en 2021</h2></div>
+  <ol class="pasos">
+    <li>En la conexión de la Alcaldía, abrir la carpeta <b>Ortofotomapas</b>.</li>
+    <li>Cargar <code>2020_ORTOFOLIDAR_2014</code> y <code>2020_ORTOFOLIDAR_2021</code>.</li>
+    <li>Acercar hasta ver los píxeles: ese tamaño es la <b>resolución</b>.</li>
+    <li>Apagar y prender la capa de arriba: ¿qué cambió en la ciudad?</li>
+  </ol>
+  <div class="destacado">Una ortofoto es un ráster: cada píxel guarda un color. Comparar dos fechas usa el componente <b>temporal</b> del dato.</div>
+  <aside class="tip">Una ortofoto es una fotografía aérea corregida para que se pueda medir sobre ella como en un mapa. Comparar el mismo lugar en dos fechas es usar el componente temporal del dato.</aside>
+</section>
+
+<!-- 17 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 4</p><h2>Píxel por píxel</h2></div>
+  <ol class="pasos">
+    <li>Exporten <code>comunas</code> a EPSG:9377 (clic derecho › Exportar › Guardar objetos como).</li>
+    <li><b>Ráster › Conversión › Rasterizar</b>. Campo <code>nro</code>, tamaño de celda <b>50 m</b>.</li>
+    <li>Repitan con <b>500 m</b> y comparen.</li>
+    <li>Con <b>Identificar</b>, hagan clic en varias celdas: ¿qué valor tiene cada una?</li>
+  </ol>
+  <aside class="tip">Rasterizar convierte un vector en ráster: cada celda toma el valor del objeto que la cubre. Si el valor NoData coincide con un valor real (por ejemplo 1), esas celdas desaparecen. Practíquelo en el ejercicio 4.</aside>
+</section>
+
+<!-- 18 -->
+<section class="diapo oscura">
+  <div class="cabeza"><p class="ceja">Repaso</p><h2>Lo que deben recordar para el Cuestionario 1</h2></div>
+  <ul style="font-size:28px">
+    <li>Un dato espacial incluye la <b>ubicación</b>.</li>
+    <li>Continuo = se puede promediar (temperatura, lluvia, pendiente, profundidad).</li>
+    <li>Punto: 1 vértice · <b>línea: 2 o más</b> · polígono: 3 o más, cerrado.</li>
+    <li>Escala grande → polígonos · escala pequeña → puntos y líneas.</li>
+    <li>Una fila de la tabla = <b>un objeto</b>, nunca un vértice.</li>
+    <li>Atributos vectoriales: automáticos o del usuario. Atributos ráster: <b>no</b> los define el usuario.</li>
+    <li>Ráster: grilla de celdas iguales, cada una con un valor · mosaic dataset.</li>
+  </ul>
+  <div class="destacado" style="background:#1c4350">Tarea: presentar el <b>Cuestionario 1</b> en la plataforma · practicar los ejercicios 1 a 4 en la página · ver el video <b>«Videoclase - Fundamentos SIG»</b></div>
+  <aside class="tip">Antes del cuestionario, repase las diapositivas marcadas con «CUESTIONARIO 1» y practique los ejercicios 1 a 4 de la página del curso.</aside>
+</section>
+
+</div></div>
+<div id="barra"></div>
+<div id="controles"><a href="../index.html">Inicio</a><button id="ant">◀</button><span id="contador"></span><button id="sig">▶</button><button id="btn-full">Pantalla completa (F)</button></div>
+<button id="btn-tip" class="oculto" title="Más teoría (tecla T)">💡 Tip</button>
+<div id="panel-tip"></div>
+<script src="diapositivas.js"></script>
+</body>
+</html>

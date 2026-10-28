@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ejercicios · Fundamentos de SIG</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<header class="encabezado">
+  <div class="contenedor">
+    <div>
+      <p>Fundamentos de SIG</p>
+      <h1>Ejercicios</h1>
+    </div>
+    <div class="sub"><a href="index.html" style="color:#b9ccd0">Volver al inicio</a></div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <nav class="fila-acciones">
+    <a class="boton secundario" href="#s1">Sesión 1</a>
+    <a class="boton secundario" href="#s2">Sesión 2</a>
+    <a class="boton secundario" href="#s3">Sesión 3</a>
+  </nav>
+  <p class="estado">Los datos para QGIS se descargan desde la <a href="index.html#datos">página de inicio</a>. Las rutas de los menús son de QGIS 3; en otras versiones pueden cambiar un poco.</p>
+
+  <!-- ============================ SESIÓN 1 -->
+  <h2 id="s1">Sesión 1 · ¿Qué es un SIG y cómo representa el mundo?</h2>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 1 · 20 min</span>
+    <h3>Clasifica el mundo</h3>
+    <p>Para cada elemento elija si es discreto o continuo y con qué geometría lo representaría en un <b>mapa de Manizales</b>. Luego presione «Revisar».</p>
+    <div class="tabla-scroll">
+      <table class="datos" id="tabla-clasifica"></table>
+    </div>
+    <div class="fila-acciones">
+      <button class="boton" id="btn-revisar">Revisar</button>
+      <span class="estado" id="res-clasifica"></span>
+    </div>
+    <p class="estado">Pista: si tiene sentido sacar un promedio (temperatura, altura), el fenómeno es continuo.</p>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 2 · QGIS · 25 min</span>
+    <h3>La escala cambia la geometría</h3>
+    <ol>
+      <li>Cargue <code>Paises_Mundo</code>, <code>Ciudades_Mundo</code> e <code>Hidrografia_Mundo</code> (carpeta <code>DATA MUNDO</code>). Anote la escala que aparece en la barra de estado.</li>
+      <li>¿Por qué Bogotá es un punto y el río Amazonas una línea?</li>
+      <li>Cargue <code>comunas.geojson</code> y <code>perimetro_urbano.geojson</code> (carpeta <code>datos_reales</code>) y acerque el mapa hasta Manizales. Anote la escala.</li>
+      <li>Complete: ¿cómo dibujaría una ciudad, un río y un parque a escala pequeña (mundo) y a escala grande (Manizales)?</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>A escala pequeña: ciudad = punto, río = línea, parque = no aparece o es un punto. A escala grande: ciudad = polígono, río = polígono si se ve su ancho, parque = polígono. Por eso el río Sena en un plano 1:10.000 es un polígono y las vías nacionales en un mapa de Colombia son líneas.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 3 · QGIS · 25 min</span>
+    <h3>Anatomía de una tabla de atributos</h3>
+    <ol>
+      <li>Clic derecho sobre <code>Paises_Mundo</code> › <b>Abrir tabla de atributos</b>. ¿Cuántas filas hay?</li>
+      <li>Abra la <b>calculadora de campos</b> (icono del ábaco), marque «Crear campo virtual» y cree <code>vertices</code> con la expresión <code>num_points($geometry)</code>. ¿Cuántos vértices tiene Colombia? ¿En cuántas filas está?</li>
+      <li>Cree el campo <code>area_km2</code> con <code>$area / 1000000</code>.</li>
+      <li>Active la edición (lápiz), cree el campo de texto <code>continente</code> y escríbalo a mano para 3 países.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>Colombia tiene miles de vértices y ocupa <b>una sola fila</b>: cada fila es un objeto, no un vértice. El área es un atributo <b>generado automáticamente</b> desde la geometría; el continente es un atributo <b>definido por el usuario</b>. Un punto tiene 1 vértice, una línea 2 o más y un polígono 3 o más, cerrado.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 4 · QGIS · 15 min</span>
+    <h3>Píxel por píxel</h3>
+    <ol>
+      <li>Exporte <code>comunas</code> a EPSG:9377: clic derecho › <b>Exportar › Guardar objetos como</b>.</li>
+      <li><b>Ráster › Conversión › Rasterizar (vectorial a ráster)</b>. Campo <code>nro</code>, unidades georreferenciadas, tamaño de celda <b>50</b>.</li>
+      <li>Repita con tamaño de celda <b>500</b> y compare.</li>
+      <li>Con la herramienta <b>Identificar</b> haga clic en varias celdas.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>Cada celda tiene un valor (el número de la comuna) y todas las celdas tienen el mismo tamaño. Ese tamaño es la <b>resolución</b>: con 50 m hay más detalle y el archivo pesa más que con 500 m. Los valores salen de los datos, no se escriben a mano celda por celda.</p>
+    </details>
+  </article>
+
+  <!-- ============================ SESIÓN 2 -->
+  <h2 id="s2">Sesión 2 · ¿Dónde está el dato?</h2>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 5 · QGIS · 20 min</span>
+    <h3>Mi casa en coordenadas</h3>
+    <ol>
+      <li>En Google Maps, haga clic derecho sobre su casa o su trabajo y copie las coordenadas (por ejemplo <code>5.0689, -75.5174</code>).</li>
+      <li>En Excel o en el Bloc de notas cree un archivo con tres columnas, <code>nombre, latitud, longitud</code>, y una fila por cada lugar (por ejemplo su casa, su trabajo y la universidad). Guárdelo como <code>mis_lugares.csv</code>.</li>
+      <li>En QGIS: <b>Capa › Añadir capa › Añadir capa de texto delimitado</b> y elija el archivo.</li>
+      <li>Campo X = <code>longitud</code>, campo Y = <code>latitud</code>, SRC <b>EPSG:4326</b>.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>En Colombia la longitud siempre es negativa porque estamos al oeste de Greenwich. Si un punto aparece en África o en el océano, se cruzaron la latitud y la longitud: en el SIG la X es la longitud y la Y la latitud.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 6 · QGIS · 30 min</span>
+    <h3>¿Qué es más grande, Groenlandia o Colombia?</h3>
+    <ol>
+      <li>Con <code>Paises_Mundo</code> cargada, cambie el SRC del proyecto (esquina inferior derecha) a <b>EPSG:3857</b> y mire Groenlandia.</li>
+      <li>Cámbielo a <b>ESRI:54009</b> (Mollweide) y mire de nuevo.</li>
+      <li>En la calculadora de campos cree el campo virtual <code>km2_mercator</code>:<br><code>area(transform($geometry,'EPSG:4326','EPSG:3857'))/1000000</code></li>
+      <li>Y el campo virtual <code>km2_real</code>:<br><code>area(transform($geometry,'EPSG:4326','ESRI:54009'))/1000000</code></li>
+      <li>Compare los valores de Groenlandia y Colombia. Ignore la Antártida.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>En Mollweide, una proyección <b>equivalente</b> (conserva la superficie), Groenlandia mide unos 2,2 millones de km² y Colombia unos 1,1 millones: menos del doble. En Mercator, que es <b>conforme</b> (conserva la forma, no el área), Groenlandia parece varias veces más grande. Ninguna proyección conserva todo a la vez.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 7 · QGIS · 20 min</span>
+    <h3>¿En qué zona UTM estoy?</h3>
+    <ol>
+      <li>Cargue <code>UTM_zones/ZONAS_UTM.kmz</code> (carpeta <code>DATA MUNDO</code>) encima de <code>Paises_Mundo</code>.</li>
+      <li>¿En qué zonas cae Colombia? ¿Y Manizales?</li>
+      <li>Exporte la capa de lugares del ejercicio 5 a <b>EPSG:32618</b> (WGS 84 / UTM zona 18N).</li>
+      <li>En la tabla, cree los campos virtuales <code>x</code> = <code>$x</code> e <code>y</code> = <code>$y</code>. ¿En qué unidades están?</li>
+      <li>Repita con <b>EPSG:9377</b> (Origen Nacional) y compare.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>Colombia cae en las zonas UTM 17, 18 y 19; Manizales en la 18 Norte. Las coordenadas UTM y las del Origen Nacional están en <b>metros</b>. Los números cambian entre los dos sistemas porque cada uno tiene un origen distinto, aunque los puntos son los mismos.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 8 · 20 min</span>
+    <h3>Escalas en papel</h3>
+    <ol>
+      <li>En un mapa 1:25.000, ¿cuántos metros son 4 cm?</li>
+      <li>En un plano 1:2.500, ¿cuánto mide en el papel una cuadra de 100 m?</li>
+      <li>Clasifique como grande, mediana o pequeña: 1:2.500 · 1:25.000 · 1:100.000 · 1:1.000.000.</li>
+      <li>¿Qué escala es «más grande», 1:1.000 o 1:1.000.000?</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>1) 4 × 25.000 = 100.000 cm = <b>1.000 m</b>. 2) 10.000 cm ÷ 2.500 = <b>4 cm</b>. 3) Grande, mediana, mediana, pequeña (criterio común: grande hasta 1:10.000; mediana de 1:25.000 a 1:100.000; pequeña desde 1:250.000). 4) <b>1:1.000</b>: es la fracción mayor y muestra más detalle.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 9 · QGIS · 20 min</span>
+    <h3>Vector o ráster y las tres caras del dato</h3>
+    <p><b>Parte A.</b> Sin mirar la presentación, responda: ¿cuál modelo tiene mejor representación gráfica, menor volumen de datos, superposición más simple y tecnología más económica?</p>
+    <details><summary>Ver respuesta de la parte A</summary>
+      <p>Vector: mejor representación gráfica y datos más compactos. Ráster: superposición más simple y tecnología más económica.</p>
+    </details>
+    <p><b>Parte B.</b> Abra <code>casos_ficticios.geojson</code> (carpeta <code>datos_practica</code>). Identifique el componente espacial, el temático y el temporal. Luego filtre los casos de marzo: clic derecho › <b>Filtrar</b> › <code>month("fecha") = 3</code>.</p>
+    <details><summary>Ver respuesta de la parte B</summary>
+      <p>Espacial: la ubicación del punto. Temático: los atributos del caso. Temporal: el campo <code>fecha</code>. Los componentes de los datos geográficos son <b>espacial, temático y temporal</b>.</p>
+    </details>
+  </article>
+
+  <!-- ============================ SESIÓN 3 -->
+  <h2 id="s3">Sesión 3 · Analizar y decidir</h2>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 10 · QGIS · 55 min</span>
+    <h3>¿Qué comuna tiene menos equipamientos?</h3>
+    <ol>
+      <li>Cargue <code>comunas</code> y <code>equipamientos_colectivos</code> (carpeta <code>datos_reales</code>) y exporte ambas a <b>EPSG:9377</b>.</li>
+      <li><b>Vectorial › Herramientas de geometría › Centroides</b> sobre los equipamientos: cada uno queda como un punto.</li>
+      <li><b>Vectorial › Herramientas de análisis › Contar puntos en polígono</b>: polígonos = comunas, puntos = centroides.</li>
+      <li>Simbología de la capa resultante › <b>Graduado</b> con el campo del conteo.</li>
+      <li><b>Vectorial › Geoproceso › Buffer</b> de 500 m alrededor de los centroides, con «Disolver resultado». ¿Qué zonas quedan fuera?</li>
+      <li>Opcional: <b>Intersección</b> entre las comunas y <code>zonas_amenaza.geojson</code> (datos ficticios).</li>
+    </ol>
+    <details><summary>Pregunta para reflexionar</summary>
+      <p>Si usted fuera la Alcaldía, ¿en qué comuna construiría el próximo equipamiento y por qué? Justifíquelo con el conteo y con el área de influencia.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 11 · QGIS · 50 min</span>
+    <h3>El mapa final</h3>
+    <p><b>Proyecto › Nuevo diseño de impresión</b>. Su mapa debe tener:</p>
+    <ul>
+      <li>Título que diga qué, dónde y cuándo</li>
+      <li>Leyenda (renombre antes las capas con nombres legibles)</li>
+      <li>Escala gráfica y flecha de norte</li>
+      <li>Sistema de referencia (EPSG:9377)</li>
+      <li>Fuente: «Datos: Alcaldía de Manizales. Mapa base: © colaboradores de OpenStreetMap»</li>
+      <li>Autores y fecha</li>
+    </ul>
+    <p>Expórtelo con <b>Diseño › Exportar como PDF</b>. Un buen mapa responde tres preguntas: ¿qué se preguntó?, ¿qué datos se usaron?, ¿qué se encontró?</p>
+  </article>
+</main>
+
+<footer>Fundamentos de SIG · Facultad de Ciencias e Ingeniería · Universidad de Manizales</footer>
+
+<script>
+const elementos = [
+  ["Temperatura del mar", "Continuo", "Ráster"],
+  ["Lluvia anual", "Continuo", "Ráster"],
+  ["Pendiente del terreno", "Continuo", "Ráster"],
+  ["Vías", "Discreto", "Línea"],
+  ["Hidrantes", "Discreto", "Punto"],
+  ["Direcciones de vivienda", "Discreto", "Punto"],
+  ["Zonas electorales", "Discreto", "Polígono"],
+  ["Barrios de Manizales", "Discreto", "Polígono"],
+  ["Hospital de Caldas (en un plano de Manizales)", "Discreto", "Polígono"],
+  ["Tipos de suelo", "Discreto", "Polígono"],
+  ["Cobertura vegetal (bosque, pasto, cultivo)", "Discreto", "Polígono"],
+];
+const tipos = ["Discreto", "Continuo"];
+const geometrias = ["Punto", "Línea", "Polígono", "Ráster"];
+const sel = (ops, k, c) => `<select data-k="${k}" data-c="${c}"><option value="">Elija…</option>${ops.map((o) => `<option>${o}</option>`).join("")}</select>`;
+document.getElementById("tabla-clasifica").innerHTML =
+  `<tr><th>Elemento</th><th>¿Discreto o continuo?</th><th>Geometría</th><th></th></tr>` +
+  elementos.map((e, k) => `<tr><td>${e[0]}</td><td>${sel(tipos, k, 1)}</td><td>${sel(geometrias, k, 2)}</td><td id="m${k}"></td></tr>`).join("");
+document.getElementById("btn-revisar").addEventListener("click", () => {
+  let bien = 0;
+  elementos.forEach((e, k) => {
+    const t = document.querySelector(`select[data-k="${k}"][data-c="1"]`).value;
+    const g = document.querySelector(`select[data-k="${k}"][data-c="2"]`).value;
+    const ok = t === e[1] && g === e[2];
+    if (ok) bien++;
+    document.getElementById("m" + k).innerHTML = ok ? '<span class="marca bien">✔</span>' : '<span class="marca mal">✘</span>';
+  });
+  document.getElementById("res-clasifica").textContent = `${bien} de ${elementos.length} correctas. Revise las marcadas con ✘ y vuelva a intentar.`;
+});
+</script>
+</body>
+</html>
