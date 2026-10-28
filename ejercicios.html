@@ -159,8 +159,36 @@
   </article>
 
   <!-- ============================ SESIÓN 3 -->
-  <h2 id="s3">Sesión 3 · Analizar y decidir</h2>
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 12 · 15 min</span>
+    <h3>Grados, minutos y segundos</h3>
+    <ol>
+      <li>Convierta a grados decimales: <b>5° 04′ 12″ N</b>.</li>
+      <li>Convierta a grados decimales: <b>75° 30′ 36″ O</b> (recuerde el signo).</li>
+      <li>Convierta a grados, minutos y segundos: <b>4,7110°</b> (latitud norte de Bogotá).</li>
+      <li>Convierta a grados, minutos y segundos: <b>−74,0721°</b> (longitud de Bogotá).</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>1) 5 + 4/60 + 12/3600 = <b>5,07°</b>. 2) 75 + 30/60 + 36/3600 = 75,51 → <b>−75,51°</b> (oeste es negativo). 3) 0,7110 × 60 = 42,66′ → 42′; 0,66 × 60 = 39,6″ → <b>4° 42′ 39,6″ N</b>. 4) 0,0721 × 60 = 4,326′ → 4′; 0,326 × 60 = 19,56″ → <b>74° 04′ 19,6″ O</b>.</p>
+    </details>
+  </article>
 
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 13 · QGIS · 30 min</span>
+    <h3>Georreferenciar un plano de Manizales</h3>
+    <ol>
+      <li>Proyecto nuevo en <b>EPSG:9377</b>. Cargue <code>comunas.geojson</code> (carpeta <code>datos_reales</code>) como referencia.</li>
+      <li><b>Capa › Georreferenciador</b>. En la ventana que se abre, <b>Abrir ráster</b> › <code>plano_manizales_sin_coordenadas.png</code> (carpeta <code>datos_practica</code>).</li>
+      <li>Con <b>Añadir punto</b>, haga clic en una esquina reconocible del plano. En la ventana que aparece elija <b>Desde lienzo del mapa</b> y haga clic en la misma esquina sobre la capa de comunas. Repita hasta tener 6 puntos repartidos por todo el plano.</li>
+      <li><b>Configuración de la transformación</b>: tipo <b>Polinomial 1</b>, remuestreo <b>Vecino más próximo</b>, SRC de destino <b>EPSG:9377</b>, archivo de salida <code>plano_georreferenciado.tif</code>.</li>
+      <li><b>Iniciar georreferenciado</b> (botón de reproducir). Cierre el georreferenciador y compare el plano con las comunas.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>Si los puntos están bien marcados, el plano encaja casi exactamente sobre las comunas. Si queda torcido o desplazado, revise la columna de residuos: el punto con el residuo más alto es el que está mal marcado. Bórrelo y márquelo de nuevo.</p>
+    </details>
+  </article>
+
+  <h2 id="s3">Sesión 3 · Analizar y decidir</h2>
   <article class="ejercicio">
     <span class="pill">Ejercicio 10 · QGIS · 55 min</span>
     <h3>¿Qué comuna tiene menos equipamientos?</h3>
@@ -191,6 +219,49 @@
     </ul>
     <p>Expórtelo con <b>Diseño › Exportar como PDF</b>. Un buen mapa responde tres preguntas: ¿qué se preguntó?, ¿qué datos se usaron?, ¿qué se encontró?</p>
   </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 14 · QGIS · 20 min</span>
+    <h3>Consultas por atributos y por ubicación</h3>
+    <ol>
+      <li>Cargue <code>comunas</code> y <code>equipamientos_colectivos</code> (carpeta <code>datos_reales</code>).</li>
+      <li>Seleccione la capa de equipamientos y use <b>Seleccionar objetos usando una expresión</b> (icono ε): <code>"EQUIPAMIEN" = 'SALUD'</code>. ¿Cuántos quedan seleccionados?</li>
+      <li>Con la herramienta de selección, haga clic sobre una comuna.</li>
+      <li><b>Vectorial › Herramientas de investigación › Seleccionar por localización</b>: seleccionar objetos de <b>equipamientos_colectivos</b> que <b>están dentro de</b> <b>comunas</b> (marque «Solo objetos seleccionados»). Modificar selección actual: <b>seleccionando dentro de la selección actual</b>.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>La consulta por atributos selecciona 54 equipamientos de salud. Al combinarla con la consulta por ubicación, quedan solo los de salud que están dentro de la comuna que eligió. El número cambia según la comuna.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 15 · QGIS · 30 min</span>
+    <h3>¿Cuántos kilómetros de vías tiene cada comuna?</h3>
+    <ol>
+      <li>Exporte <code>red_vial_arterial</code> y <code>comunas</code> a <b>EPSG:9377</b>.</li>
+      <li><b>Vectorial › Geoproceso › Intersección</b>: capa de entrada = vías, capa de superposición = comunas.</li>
+      <li>En la capa resultante abra la calculadora de campos y cree el campo <code>km</code> (decimal) con <code>$length / 1000</code>.</li>
+      <li><b>Procesos › Caja de herramientas</b> › busque <b>Estadísticas por categorías</b>: campo a calcular <code>km</code>, campo de categoría <code>NOMBRES_CO</code>. Ejecute y abra la tabla resultante.</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>La tabla final tiene una fila por comuna con la suma de kilómetros (columna <code>sum</code>). Las comunas más extensas o con más vías arteriales tienen los valores más altos. Si los números salen muy pequeños (menores que 1), la capa no estaba en metros: revise el paso 1.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Ejercicio 16 · QGIS · 15 min</span>
+    <h3>Mapa de calor</h3>
+    <ol>
+      <li>Cargue <code>casos_ficticios.geojson</code> (carpeta <code>datos_practica</code>) y exporte la capa a EPSG:9377.</li>
+      <li>Doble clic › <b>Simbología</b> › cambie «Símbolo único» por <b>Mapa de calor</b>. Radio: <b>300</b> metros.</li>
+      <li>Pruebe con radios de 100 y 1.000. ¿Qué cambia?</li>
+      <li>Clic derecho › <b>Filtrar</b> › <code>month("fecha") = 3</code>. ¿Dónde se concentran los casos de marzo?</li>
+    </ol>
+    <details><summary>Ver respuesta</summary>
+      <p>Con radio pequeño se ven focos separados; con radio grande, una mancha general. En los datos ficticios hay dos focos principales. El filtro deja solo los casos de marzo y el mapa de calor se recalcula con ellos.</p>
+    </details>
+  </article>
+
 </main>
 
 <footer>Fundamentos de SIG · Facultad de Ciencias e Ingeniería · Universidad de Manizales</footer>

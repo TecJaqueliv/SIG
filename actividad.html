@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Actividad guiada · Sesión 2 · Fundamentos de SIG</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<header class="encabezado">
+  <div class="contenedor">
+    <div>
+      <p>Fundamentos de SIG · Sesión 2</p>
+      <h1>Actividad guiada: mis lugares en coordenadas</h1>
+    </div>
+    <div class="sub"><a href="index.html" style="color:#b9ccd0">Volver al inicio</a></div>
+  </div>
+</header>
+
+<main class="contenedor">
+  <div class="aviso info">
+    <b>Individual.</b> Se entrega <b>un solo archivo PDF</b> en el <b>módulo de la universidad</b>, en la actividad de la sesión 2, antes de <b>[fecha límite]</b>.<br>
+    Nombre del archivo: <code>Apellido_Nombre_Actividad_S2.pdf</code> (ejemplo: <code>Lopez_Maria_Actividad_S2.pdf</code>).
+  </div>
+
+  <h2>Qué va a aprender</h2>
+  <p>A pasar una tabla de coordenadas a un mapa, a cambiar de sistema de referencia, a medir en metros y a presentar un mapa completo. Es la práctica de todo lo que se vio en la sesión 2 y lo que pregunta el Cuestionario 3.</p>
+  <p><b>Tiempo estimado:</b> 1 hora y 40 minutos. <b>Necesita:</b> QGIS, internet (para el mapa base) y un procesador de texto (Word, Google Docs o LibreOffice) para armar el PDF.</p>
+  <p class="estado">📷 = en ese paso tome una captura de pantalla (tecla <b>Impr Pant</b> o <b>Windows + Shift + S</b>) y péguela en su documento.</p>
+
+  <h2>Paso a paso</h2>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 1 · 10 min</span>
+    <h3>Elija 5 lugares de Manizales y busque sus coordenadas</h3>
+    <ol>
+      <li>Elija 5 lugares: por ejemplo la universidad, un parque, un hospital, una estación del cable y otro que usted quiera. Si no quiere compartir la ubicación de su casa, use solo lugares públicos.</li>
+      <li>En Google Maps haga clic derecho sobre cada lugar (en el celular, deje el dedo presionado). Aparecen dos números, por ejemplo <code>5.0681, -75.5165</code>: el primero es la <b>latitud</b> y el segundo la <b>longitud</b>.</li>
+    </ol>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 2 · 10 min</span>
+    <h3>Cree la tabla <code>mis_lugares.csv</code></h3>
+    <ol>
+      <li>Abra el Bloc de notas y escriba la tabla así, con una fila por lugar (use punto decimal y la longitud con signo menos):
+        <pre style="background:#ece7dc;padding:12px;border-radius:8px;overflow-x:auto">nombre,tipo,latitud,longitud
+Lugar 1,Educativo,5.0681,-75.5165
+Lugar 2,Recreativo,5.0695,-75.5143</pre>
+        <span class="estado">Estas dos filas son solo un ejemplo del formato: reemplácelas por sus 5 lugares y sus coordenadas reales.</span></li>
+      <li>Guárdelo como <code>mis_lugares.csv</code>, con codificación <b>UTF-8</b>.</li>
+    </ol>
+    <details><summary>¿Por qué el Bloc de notas y no Excel?</summary>
+      <p>Excel en español suele guardar los CSV con punto y coma y comas decimales, y QGIS los lee mal. Si usa Excel, revise que el archivo final tenga comas entre columnas y puntos en los decimales.</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 3 · 10 min</span>
+    <h3>Cárguelo en QGIS</h3>
+    <ol>
+      <li>Proyecto nuevo. Mapa base: Navegador › <b>Teselas XYZ</b> › <b>OpenStreetMap</b>.</li>
+      <li><b>Capa › Añadir capa › Añadir capa de texto delimitado</b>. Elija su archivo.</li>
+      <li>Formato: <b>CSV</b>. Definición de geometría: <b>Coordenadas de punto</b>, campo X = <code>longitud</code>, campo Y = <code>latitud</code>, SRC <b>EPSG:4326</b>. Presione <b>Añadir</b>.</li>
+      <li>Revise que los 5 puntos caigan en Manizales. Si aparecen lejos, revise el orden de X e Y y el signo de la longitud.</li>
+    </ol>
+    <p>📷 <b>Captura 1:</b> sus 5 puntos sobre OpenStreetMap.</p>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 4 · 15 min</span>
+    <h3>Reproyecte a EPSG:9377 y calcule las coordenadas en metros</h3>
+    <ol>
+      <li>Clic derecho sobre la capa › <b>Exportar › Guardar objetos como</b>. Formato <b>GeoPackage</b>, archivo <code>mis_lugares_9377.gpkg</code>, SRC <b>EPSG:9377</b> (búsquelo con el globo). Aceptar.</li>
+      <li>Abra la tabla de atributos de la capa nueva, active la edición (lápiz) y abra la <b>calculadora de campos</b>.</li>
+      <li>Cree el campo <code>x_9377</code> (número decimal) con la expresión <code>$x</code>. Repita con <code>y_9377</code> y la expresión <code>$y</code>.</li>
+      <li>Guarde la edición y desactive el lápiz.</li>
+    </ol>
+    <p>📷 <b>Captura 2:</b> la tabla de atributos con las columnas latitud, longitud, x_9377 e y_9377.</p>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 5 · 10 min</span>
+    <h3>Convierta una coordenada a grados, minutos y segundos</h3>
+    <ol>
+      <li>Tome la latitud y la longitud de <b>uno</b> de sus lugares.</li>
+      <li>Conviértalas a grados, minutos y segundos y escriba el cálculo completo en su documento.</li>
+    </ol>
+    <details><summary>Ver el procedimiento con un ejemplo</summary>
+      <p>Longitud −75,5165: los grados son 75. La parte decimal 0,5165 × 60 = 30,99 → 30 minutos. Lo que sobra, 0,99 × 60 = 59,4 → 59,4 segundos. Resultado: <b>75° 30′ 59,4″ O</b> (oeste, porque era negativa).</p>
+    </details>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 6 · 10 min</span>
+    <h3>Mida una distancia en metros</h3>
+    <ol>
+      <li>Cambie el SRC del proyecto a <b>EPSG:9377</b> (esquina inferior derecha).</li>
+      <li>Use la herramienta <b>Medir línea</b> (la regla de la barra de herramientas) y mida la distancia en línea recta entre dos de sus lugares. Clic derecho para terminar.</li>
+    </ol>
+    <p>📷 <b>Captura 3:</b> la ventana de medición con la distancia en metros.</p>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 7 · 20 min</span>
+    <h3>Haga el mapa y expórtelo como imagen</h3>
+    <ol>
+      <li>Simbolice sus puntos por categorías con el campo <code>tipo</code> y renombre la capa como «Mis lugares».</li>
+      <li><b>Proyecto › Nuevo diseño de impresión</b>. Agregue: el mapa, un <b>título</b>, la <b>leyenda</b>, una <b>escala gráfica</b>, una <b>flecha de norte</b> y un texto con el <b>sistema de referencia</b> (EPSG:9377), la <b>fuente</b> («Mapa base: © colaboradores de OpenStreetMap»), su <b>nombre</b> y la <b>fecha</b>.</li>
+      <li><b>Diseño › Exportar como imagen</b> (PNG) para pegarlo en su documento.</li>
+    </ol>
+  </article>
+
+  <article class="ejercicio">
+    <span class="pill">Paso 8 · 15 min</span>
+    <h3>Responda estas 5 preguntas en su documento</h3>
+    <ol>
+      <li>¿Qué marco de referencia usa el sistema EPSG:9377 y por qué es el que se usa en Colombia?</li>
+      <li>¿Por qué la longitud de sus lugares es negativa?</li>
+      <li>¿Cuál es la diferencia entre asignar un sistema de referencia y reproyectar? ¿Cuál hizo en el paso 4?</li>
+      <li>¿Por qué no se puede medir una distancia en metros con la capa en EPSG:4326?</li>
+      <li>¿Qué escala aproximada tiene su mapa? ¿Es una escala grande o pequeña? ¿Por qué?</li>
+    </ol>
+  </article>
+
+  <h2>Qué debe tener el PDF</h2>
+  <div class="tarjeta">
+    <ol>
+      <li>Portada corta: nombre, documento, fecha y «Actividad guiada · Sesión 2».</li>
+      <li>Captura 1: los 5 puntos sobre el mapa base.</li>
+      <li>Captura 2: la tabla con las coordenadas en grados y en metros.</li>
+      <li>El cálculo de grados, minutos y segundos.</li>
+      <li>Captura 3: la distancia medida.</li>
+      <li>El mapa exportado.</li>
+      <li>Las respuestas a las 5 preguntas.</li>
+    </ol>
+    <p class="estado">En Word: <b>Archivo › Guardar como › PDF</b>. En Google Docs: <b>Archivo › Descargar › Documento PDF</b>.</p>
+  </div>
+
+  <h2>Cómo se califica</h2>
+  <div class="tabla-scroll">
+    <table class="datos">
+      <tr><th>Criterio</th><th style="width:110px">Puntos</th></tr>
+      <tr><td>Los 5 lugares cargados correctamente sobre Manizales (captura 1)</td><td>15</td></tr>
+      <tr><td>Reproyección a EPSG:9377 y coordenadas en metros (captura 2)</td><td>20</td></tr>
+      <tr><td>Conversión a grados, minutos y segundos correcta y con el cálculo</td><td>15</td></tr>
+      <tr><td>Distancia medida en metros (captura 3)</td><td>10</td></tr>
+      <tr><td>Mapa con título, leyenda, escala gráfica, norte, SRC, fuente, autor y fecha</td><td>20</td></tr>
+      <tr><td>Respuestas a las 5 preguntas (4 puntos cada una)</td><td>20</td></tr>
+      <tr><th>Total</th><th>100</th></tr>
+    </table>
+  </div>
+
+  <div class="aviso info" style="margin-top:20px">¿Se atascó? Repase la presentación de la sesión 2 (con sus 💡 tips) y los ejercicios 5, 7 y 12 de la <a href="ejercicios.html#s2">página de ejercicios</a>.</div>
+</main>
+
+<footer>Fundamentos de SIG · Facultad de Ciencias e Ingeniería · Universidad de Manizales</footer>
+</body>
+</html>

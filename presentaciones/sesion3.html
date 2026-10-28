@@ -29,15 +29,28 @@
   <div class="cabeza"><p class="ceja">Agenda · 3 horas</p><h2>De los datos a una decisión</h2></div>
   <table class="t">
     <tr><th style="width:18%">Hora</th><th>Tema</th><th style="width:28%">Formato</th></tr>
-    <tr><td>0:00</td><td>Superposición, aplicaciones, geoportales, herramientas</td><td>Teoría</td></tr>
-    <tr class="marca"><td>0:50</td><td>¿Qué comuna tiene menos equipamientos?</td><td>Demostración en QGIS</td></tr>
-    <tr><td>1:30</td><td>Descanso</td><td></td></tr>
-    <tr class="marca"><td>1:40</td><td>Cómo hacer un buen mapa</td><td>Demostración en QGIS</td></tr>
-    <tr><td>2:30</td><td>Resumen del curso y cierre</td><td>Teoría</td></tr>
+    <tr><td>0:00</td><td>Repaso · superposición · consultas</td><td>Teoría y demostración</td></tr>
+    <tr><td>0:35</td><td>Aplicaciones: salud y gestión del riesgo en Manizales</td><td>Teoría y demostración</td></tr>
+    <tr class="marca"><td>1:00</td><td>Herramientas de análisis · ¿qué comuna tiene menos equipamientos?</td><td>Demostración</td></tr>
+    <tr><td>1:35</td><td>Descanso</td><td></td></tr>
+    <tr class="marca"><td>1:45</td><td>Vías por comuna · mapa de calor · simbología · un buen mapa</td><td>Demostración</td></tr>
+    <tr><td>2:35</td><td>Tendencias, repaso general y cierre</td><td>Teoría</td></tr>
   </table>
 </section>
 
 <!-- 3 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Repaso de la sesión 2</p><h2>Antes de analizar, ubicar bien</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Datum</h3>MAGNA-SIRGAS es el marco de referencia de Colombia.</div>
+    <div class="tarjeta top"><h3>Coordenadas</h3>En el SIG: X = longitud, Y = latitud. En Colombia la longitud es negativa.</div>
+    <div class="tarjeta top"><h3>Proyección</h3>Conforme, equivalente o equidistante: ninguna conserva todo.</div>
+    <div class="tarjeta top"><h3>Para medir</h3>Siempre en metros: reproyectar a <b>EPSG:9377</b>.</div>
+  </div>
+  <aside class="tip">Hoy todas las demostraciones empiezan igual: exportar las capas a EPSG:9377. Si lo olvida, las distancias y áreas salen en grados y no tienen sentido.</aside>
+</section>
+
+<!-- 4 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Superposición de capas</p><h2>La respuesta casi nunca está en una sola capa</h2></div>
   <div class="fila centro">
@@ -58,7 +71,30 @@
   <aside class="tip">Superponer capas es cruzarlas para encontrar los lugares que cumplen varias condiciones al mismo tiempo. Es la base del análisis multicriterio que usan los planes de ordenamiento.</aside>
 </section>
 
-<!-- 4 -->
+<!-- 5 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Consultas</p><h2>Preguntarle al mapa: por atributos o por ubicación</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Por atributos (¿qué?)</h3>Se busca en la tabla con una condición.<br><br><code>"EQUIPAMIEN" = 'SALUD'</code><br><span class="chica">→ todos los equipamientos de salud</span></div>
+    <div class="tarjeta verde"><h3>Por ubicación (¿dónde?)</h3>Se busca por la relación espacial con otra capa: <b>dentro de</b>, <b>toca</b>, <b>se cruza con</b>, <b>a menos de</b>.<br><span class="chica">→ los equipamientos que están dentro de una comuna</span></div>
+  </div>
+  <div class="destacado">Una consulta por ubicación es algo que una hoja de cálculo <b>no puede</b> hacer: es la gran ventaja del SIG.</div>
+  <aside class="tip">En las expresiones de QGIS los nombres de campo van entre comillas dobles ("EQUIPAMIEN") y los textos entre comillas sencillas ('SALUD'). Se pueden combinar condiciones con AND y OR.</aside>
+</section>
+
+<!-- 6 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 14</p><h2>Equipamientos de salud en una comuna</h2></div>
+  <ol class="pasos">
+    <li>Cargar <code>comunas</code> y <code>equipamientos_colectivos</code> (datos_reales).</li>
+    <li><b>Seleccionar objetos usando una expresión</b> (icono ε): <code>"EQUIPAMIEN" = 'SALUD'</code> → 54 equipamientos.</li>
+    <li>Seleccionar una comuna con un clic (herramienta de selección).</li>
+    <li><b>Vectorial › Herramientas de investigación › Seleccionar por localización</b>: equipamientos que <b>están dentro de</b> la comuna seleccionada.</li>
+  </ol>
+  <aside class="tip">Con «Seleccionar por localización» puede elegir crear una nueva selección, añadir a la actual o seleccionar dentro de la selección actual. Para combinar las dos consultas (salud y dentro de la comuna) use «seleccionar dentro de la selección actual».</aside>
+</section>
+
+<!-- 7 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Unidad 3 · Aplicaciones</p><h2>Los SIG sirven en casi cualquier profesión</h2></div>
   <div class="rejilla3">
@@ -72,7 +108,35 @@
   <aside class="tip">Geocodificar es convertir direcciones en puntos del mapa. Es el primer paso para mapear casos de salud, delitos o clientes.</aside>
 </section>
 
-<!-- 5 -->
+<!-- 8 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Unidad 3 · SIG en la salud</p><h2>Caso de estudio: el dengue en el mapa</h2></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+    <div class="tarjeta top"><div class="num">1</div><h3>Geocodificar</h3>Cada caso del SIVIGILA se ubica por la dirección del paciente.</div>
+    <div class="tarjeta top"><div class="num">2</div><h3>Mapa de puntos</h3>Se ve dónde están los casos, como hizo John Snow.</div>
+    <div class="tarjeta top"><div class="num">3</div><h3>Superficie</h3>La interpolación (IDW) estima el riesgo entre los puntos.</div>
+    <div class="tarjeta oscura-t"><div class="num" style="color:#f0a060">4</div><h3>Decisión</h3>Fumigación y prevención donde se concentran.</div>
+  </div>
+  <div class="destacado">En Medellín se encontraron focos en <b>Belén, Guayabal y Altavista</b>; en La Habana se definieron estratos de riesgo por manzanas.</div>
+  <aside class="tip">Para saber si los casos están agrupados y no repartidos al azar se usa la autocorrelación espacial, que se mide con el índice I de Moran. IDW es una interpolación: estima valores entre puntos conocidos.</aside>
+</section>
+
+<!-- 9 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Gestión del riesgo · demostración</p><h2>Manizales y el Nevado del Ruiz</h2></div>
+  <div class="fila">
+    <ol class="pasos f1">
+      <li>Conexión <b>Servidores REST ArcGIS</b> del Servicio Geológico Colombiano: <code>https://srvags.sgc.gov.co/arcgis/rest/services</code></li>
+      <li>Abrir la carpeta <b>Amenaza_Volcanica</b> y cargar la capa del volcán Nevado del Ruiz.</li>
+      <li>Encima, cargar <code>perimetro_urbano</code> y <code>comunas</code> de Manizales.</li>
+      <li>¿Qué zonas de amenaza tocan el municipio? Esto es <b>superposición de capas</b>.</li>
+    </ol>
+    <div class="tarjeta" style="width:440px"><h3>Otras amenazas en Manizales</h3>Deslizamientos (plano U-4 del POT), inundación en Chachafruto, avenidas torrenciales. Todas se analizan cruzando capas.</div>
+  </div>
+  <aside class="tip">El Servicio Geológico Colombiano publica mapas de amenaza volcánica, sísmica y por movimientos en masa. Los mapas de amenaza son insumo obligatorio de los planes de ordenamiento territorial.</aside>
+</section>
+
+<!-- 10 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">De dónde salen los datos</p><h2>Geoportales y QGIS</h2></div>
   <div class="rejilla2">
@@ -83,7 +147,7 @@
   <aside class="tip">En QGIS puede conectarse a servidores públicos sin descargar datos: en el Navegador, Servidores REST ArcGIS o WMS/WMTS › Nueva conexión.</aside>
 </section>
 
-<!-- 6 -->
+<!-- 11 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Herramientas de análisis</p><h2>Cuatro herramientas para empezar</h2></div>
   <div class="rejilla4">
@@ -96,7 +160,21 @@
   <aside class="tip">Buffer = zona a una distancia fija. Intersección = lo común entre dos capas. Conteo = cuántos puntos caen en cada polígono. Mapa de calor = dónde se concentran los puntos. Mida siempre en metros (EPSG:9377).</aside>
 </section>
 
-<!-- 7 -->
+<!-- 12 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Más herramientas</p><h2>La caja de herramientas del analista</h2></div>
+  <table class="t">
+    <tr><th style="width:26%">Herramienta</th><th>Qué hace</th><th style="width:36%">Ejemplo en Manizales</th></tr>
+    <tr><td><b>Centroides</b></td><td>Convierte cada polígono en su punto central</td><td>Equipamientos como puntos</td></tr>
+    <tr><td><b>Recortar</b></td><td>Deja solo lo que cae dentro de otra capa</td><td>Vías dentro de una comuna</td></tr>
+    <tr><td><b>Disolver</b></td><td>Une los objetos que comparten un atributo</td><td>Barrios → comunas</td></tr>
+    <tr><td><b>Unir atributos por localización</b></td><td>Pasa los datos de una capa a otra según dónde están</td><td>A cada equipamiento, el nombre de su comuna</td></tr>
+    <tr><td><b>Estadísticas por categorías</b></td><td>Suma o cuenta por grupos</td><td>Kilómetros de vías por comuna</td></tr>
+  </table>
+  <aside class="tip">Todas estas herramientas están en el menú Vectorial o en la Caja de herramientas de Procesos (Ctrl + Alt + T), donde se pueden buscar por nombre.</aside>
+</section>
+
+<!-- 13 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 10</p><h2>¿Qué comuna tiene menos equipamientos?</h2></div>
   <ol class="pasos">
@@ -109,7 +187,43 @@
   <aside class="tip">Un centroide es el punto central de un polígono. Se usa para convertir polígonos en puntos y poder contarlos. Repita este análisis en el ejercicio 10.</aside>
 </section>
 
-<!-- 8 -->
+<!-- 14 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 15</p><h2>¿Cuántos kilómetros de vías tiene cada comuna?</h2></div>
+  <ol class="pasos">
+    <li>Exportar <code>red_vial_arterial</code> y <code>comunas</code> a <b>EPSG:9377</b>.</li>
+    <li><b>Vectorial › Geoproceso › Intersección</b>: vías × comunas. Cada tramo queda con su comuna.</li>
+    <li>Calculadora de campos: nuevo campo <code>km</code> = <code>$length / 1000</code>.</li>
+    <li><b>Procesos › Estadísticas por categorías</b>: campo <code>km</code>, categoría <code>NOMBRES_CO</code>.</li>
+  </ol>
+  <aside class="tip">$length mide la longitud de cada línea en las unidades del sistema de referencia: por eso la capa debe estar en metros (EPSG:9377). Dividir entre 1.000 la convierte a kilómetros.</aside>
+</section>
+
+<!-- 15 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 16</p><h2>Mapa de calor: ¿dónde se concentran los casos?</h2></div>
+  <ol class="pasos">
+    <li>Cargar <code>casos_ficticios</code> (datos_practica). Son datos inventados para practicar.</li>
+    <li>Doble clic › <b>Simbología</b> › tipo <b>Mapa de calor</b>. Radio: 300 m.</li>
+    <li>Probar radios de 100 m y 1.000 m: el resultado cambia mucho.</li>
+    <li>Agregar el filtro <code>month("fecha") = 3</code>: el calor de marzo.</li>
+  </ol>
+  <aside class="tip">El radio decide qué tan «suave» se ve el calor: un radio pequeño muestra puntos aislados y uno grande una mancha general. Siempre hay que decir qué radio se usó. Para obtener un ráster de densidad, use Procesos › Mapa de calor (estimación de densidad de núcleo).</aside>
+</section>
+
+<!-- 16 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Simbología</p><h2>El color también comunica</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top"><h3>Categorizado</h3>Un color por categoría.<br><span class="chica">Tipo de equipamiento, nombre de comuna</span></div>
+    <div class="tarjeta top"><h3>Graduado</h3>Colores de claro a oscuro según una cantidad.<br><span class="chica">Número de equipamientos, población</span></div>
+    <div class="tarjeta top"><h3>Cortes de clase</h3>Cortes naturales, intervalos iguales o cuantiles: el mismo dato da mapas distintos.</div>
+  </div>
+  <div class="destacado">Regla: categorías → colores <b>distintos</b>; cantidades → <b>un solo color</b> de claro a oscuro. Más de 5 o 7 clases ya no se distinguen.</div>
+  <aside class="tip">Un mapa puede engañar sin mentir: cambiando los cortes de clase o los colores, la misma información parece más grave o más leve. Diga siempre cómo se clasificaron los datos y evite el rojo y el verde juntos (las personas daltónicas no los distinguen).</aside>
+</section>
+
+<!-- 17 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 11</p><h2>Un buen mapa se lee sin explicaciones</h2></div>
   <div class="fila">
@@ -127,7 +241,45 @@
   <aside class="tip">Un buen mapa tiene título, leyenda, escala gráfica, norte, sistema de referencia, fuente, autor y fecha. Practíquelo en el ejercicio 11.</aside>
 </section>
 
-<!-- 9 -->
+<!-- 18 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Unidad 3 · Hacia dónde van los SIG</p><h2>Tendencias</h2></div>
+  <div class="rejilla3">
+    <div class="tarjeta top"><h3>En la nube</h3>Datos y análisis en servidores, sin instalar nada.</div>
+    <div class="tarjeta top"><h3>3D y tiempo</h3>Modelos de ciudad en 3D que cambian en el tiempo (4D).</div>
+    <div class="tarjeta top"><h3>Gemelos digitales</h3>Una copia digital de la ciudad que se actualiza con sensores.</div>
+    <div class="tarjeta verde"><h3>Realidad virtual y aumentada</h3>Recorrer el territorio y ver capas sobre el mundo real.</div>
+    <div class="tarjeta verde"><h3>Inteligencia artificial</h3>Reconocer edificios y vías en imágenes de satélite.</div>
+    <div class="tarjeta verde"><h3>Ciudadanos como sensores</h3>Cada celular con GPS aporta datos (OpenStreetMap).</div>
+  </div>
+  <aside class="tip">El módulo resume los retos de los SIG en pasar del «qué» y el «dónde» al «por qué» y el «cómo»: integrar modelos de análisis, representar procesos en el tiempo y mejorar la interacción con las personas (Lü et al., 2019).</aside>
+</section>
+
+<!-- 19 -->
+<section class="diapo oscura">
+  <div class="cabeza"><p class="ceja">Repaso general</p><h2>Las ideas que más preguntan los cuestionarios</h2></div>
+  <div class="rejilla2" style="font-size:25px">
+    <ul>
+      <li>Dato espacial = incluye la ubicación.</li>
+      <li>Continuo = se puede promediar.</li>
+      <li>Línea = 2 o más vértices conectados.</li>
+      <li>Fila de la tabla = un objeto, no un vértice.</li>
+      <li>Escala grande → polígonos; pequeña → puntos y líneas.</li>
+      <li>Ráster: celdas iguales con valor; mosaic dataset.</li>
+    </ul>
+    <ul>
+      <li>Colombia: MAGNA-SIRGAS.</li>
+      <li>Red de meridianos y paralelos al plano = proyección.</li>
+      <li>Equivalente conserva la superficie.</li>
+      <li>UTM en metros.</li>
+      <li>1:2.500 = gran escala.</li>
+      <li>Componentes: espacial, temático, temporal.</li>
+    </ul>
+  </div>
+  <aside class="tip">Si le quedaron dudas, la página del curso tiene las tres presentaciones con sus tips y 16 ejercicios para practicar en QGIS.</aside>
+</section>
+
+<!-- 20 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Resumen del curso</p><h2>Tres sesiones, tres ideas</h2></div>
   <div class="rejilla3">
@@ -139,7 +291,7 @@
   <aside class="tip">Las tres ideas del curso: representar (vector o ráster según la escala), ubicar (datum, coordenadas y proyección) y analizar (cruzar capas).</aside>
 </section>
 
-<!-- 10 -->
+<!-- 21 -->
 <section class="diapo oscura" style="justify-content:center">
   <p class="ceja">Cierre</p>
   <h1 style="max-width:1100px">Casi toda pregunta importante tiene un «dónde»</h1>

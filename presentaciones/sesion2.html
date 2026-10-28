@@ -31,15 +31,29 @@
   <div class="cabeza"><p class="ceja">Agenda · 3 horas</p><h2>La ruta de hoy</h2></div>
   <table class="t">
     <tr><th style="width:18%">Hora</th><th>Tema</th><th style="width:28%">Formato</th></tr>
-    <tr><td>0:00</td><td>Forma de la Tierra, datum, coordenadas</td><td>Teoría y demostración</td></tr>
-    <tr><td>0:50</td><td>Proyecciones, UTM, Origen Nacional</td><td>Teoría</td></tr>
-    <tr><td>1:20</td><td>Descanso</td><td></td></tr>
-    <tr class="marca"><td>1:30</td><td>Proyecciones y UTM en QGIS · escala</td><td>Demostración</td></tr>
-    <tr><td>2:20</td><td>Vector y ráster, componentes del dato, repaso</td><td>Teoría y repaso</td></tr>
+    <tr><td>0:00</td><td>Repaso · forma de la Tierra, datum, coordenadas</td><td>Teoría y demostración</td></tr>
+    <tr class="marca"><td>0:45</td><td>Proyecciones · ¿Groenlandia o Colombia?</td><td>Teoría y demostración</td></tr>
+    <tr><td>1:15</td><td>Descanso</td><td></td></tr>
+    <tr class="marca"><td>1:25</td><td>UTM, sistemas de Colombia, georreferenciación</td><td>Teoría y demostración</td></tr>
+    <tr><td>2:15</td><td>Escala, vector y ráster, componentes del dato</td><td>Teoría</td></tr>
+    <tr class="marca"><td>2:40</td><td>Actividad guiada y repaso del Cuestionario 3</td><td>Actividad</td></tr>
   </table>
 </section>
 
 <!-- 3 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Repaso de la sesión 1</p><h2>Lo que ya sabemos</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Representar</h3>Discreto → vector (punto, línea, polígono). Continuo → ráster.</div>
+    <div class="tarjeta top"><h3>Escala</h3>Grande = mucho detalle de un área pequeña → polígonos.</div>
+    <div class="tarjeta top"><h3>Tabla de atributos</h3>Una fila = un objeto. Atributos automáticos o del usuario.</div>
+    <div class="tarjeta top"><h3>Ráster</h3>Celdas iguales, cada una con un valor. Resolución = tamaño de celda.</div>
+  </div>
+  <div class="destacado">Hoy: <b>¿dónde está cada dato sobre la Tierra?</b> Sin esto, las capas no coinciden y las medidas salen mal.</div>
+  <aside class="tip">Si tiene dudas de la sesión 1, repase la presentación y los ejercicios 1 a 4 de la página del curso antes de seguir.</aside>
+</section>
+
+<!-- 4 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Geodesia</p><h2>Tres superficies para describir la Tierra</h2></div>
   <div class="fila centro">
@@ -58,7 +72,7 @@
   <aside class="tip">Geoide = superficie de igual gravedad, parecida al nivel del mar; se usa para las alturas. Elipsoide = figura matemática achatada en los polos; se usa para las coordenadas. El relieve real es demasiado irregular para calcular.</aside>
 </section>
 
-<!-- 4 -->
+<!-- 5 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Datum y marco de referencia</p><h2>El datum amarra el elipsoide a la Tierra</h2></div>
   <div class="rejilla2">
@@ -70,7 +84,29 @@
   <aside class="tip">El datum dice cómo se coloca el elipsoide respecto a la Tierra. MAGNA-SIRGAS es el marco oficial de Colombia (IGAC): es geocéntrico y compatible con el WGS84 del GPS.</aside>
 </section>
 
-<!-- 5 -->
+<!-- 6 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Alturas</p><h2>¿Altura sobre qué? El datum vertical</h2></div>
+  <div class="fila centro">
+    <svg width="640" height="360" viewBox="0 0 640 360" aria-label="Altura elipsoidal, altura sobre el nivel del mar y ondulación del geoide">
+      <rect width="640" height="360" rx="14" fill="#fffdf8"/>
+      <path d="M20 120 L120 100 L200 60 L260 90 L330 40 L420 95 L520 70 L620 110" fill="none" stroke="#a8531a" stroke-width="5"/>
+      <path d="M20 250 C200 225 440 225 620 250" fill="none" stroke="#1f7a72" stroke-width="5" stroke-dasharray="14 9"/>
+      <path d="M20 300 Q320 255 620 300" fill="none" stroke="#12303a" stroke-width="5"/>
+      <circle cx="330" cy="40" r="10" fill="#a8531a"/>
+      <path d="M330 52 V228" stroke="#1f7a72" stroke-width="4"/><path d="M350 52 V272" stroke="#12303a" stroke-width="4"/>
+      <g font-family="Segoe UI, Arial" font-size="22" font-weight="700"><text x="250" y="150" fill="#1f7a72">H</text><text x="362" y="170" fill="#12303a">h</text></g>
+    </svg>
+    <div class="col f1" style="font-size:28px">
+      <div class="nota-lateral"><b>H</b>: altura sobre el nivel medio del mar (geoide). Es la de los mapas.</div>
+      <div class="nota-lateral" style="border-color:#12303a"><b>h</b>: altura sobre el elipsoide. Es la del GPS.</div>
+      <p>El <b>datum vertical</b> es la referencia de las alturas: en Colombia, el nivel medio del mar en Buenaventura.</p>
+    </div>
+  </div>
+  <aside class="tip">La diferencia entre la altura del GPS (h) y la altura sobre el nivel del mar (H) se llama ondulación del geoide (N): h = H + N. En Colombia puede ser de varias decenas de metros, por eso el GPS del celular no coincide con la altura del mapa.</aside>
+</section>
+
+<!-- 7 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Coordenadas geográficas</p><h2>Latitud y longitud</h2></div>
   <div class="fila centro">
@@ -91,7 +127,18 @@
   <aside class="tip">En el SIG las coordenadas se escriben (X, Y) = (longitud, latitud). En Colombia la longitud siempre es negativa (oeste) y la latitud casi siempre positiva (norte).</aside>
 </section>
 
-<!-- 6 -->
+<!-- 8 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Dos formas de escribir una coordenada</p><h2>Grados, minutos y segundos ↔ decimales</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>De GMS a decimal</h3>decimal = grados + minutos ÷ 60 + segundos ÷ 3600<br><br><b>5° 04′ 12″ N</b> = 5 + 4/60 + 12/3600 = <b>5,07°</b></div>
+    <div class="tarjeta verde"><h3>De decimal a GMS</h3>La parte decimal × 60 da los minutos; lo que sobra × 60 da los segundos.<br><br><b>75,52° O</b> → 0,52 × 60 = 31,2′ → 0,2 × 60 = 12″ → <b>75° 31′ 12″ O</b></div>
+  </div>
+  <div class="destacado">En el SIG se usan <b>grados decimales</b>, con signo: sur y oeste son negativos. Manizales: <b>(−75.52, 5.07)</b>.</div>
+  <aside class="tip">1 grado = 60 minutos y 1 minuto = 60 segundos, como en un reloj. Cerca del Ecuador, 1 grado mide unos 111 km, 1 minuto unos 1,85 km y 1 segundo unos 31 m. Practique con el ejercicio 12 de la página.</aside>
+</section>
+
+<!-- 9 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 5</p><h2>Una tabla con coordenadas se vuelve un mapa</h2></div>
   <ol class="pasos">
@@ -103,7 +150,7 @@
   <aside class="tip">Si sus puntos aparecen en África o en el océano, revise dos cosas: que la X sea la longitud y que la longitud tenga el signo menos. Practíquelo en el ejercicio 5.</aside>
 </section>
 
-<!-- 7 -->
+<!-- 10 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Proyecciones cartográficas</p><h2>Pasar la red de meridianos y paralelos a un plano</h2></div>
   <div class="rejilla3">
@@ -124,7 +171,7 @@
   <aside class="tip">Proyección = pasar la superficie curva de la Tierra a un plano. Hay tres familias según la figura: cilíndrica (cilindro), cónica (cono) y azimutal o cenital (plano).</aside>
 </section>
 
-<!-- 8 -->
+<!-- 11 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">¿Qué conserva cada proyección?</p><h2>Toda proyección sacrifica algo</h2></div>
   <div class="rejilla3">
@@ -137,7 +184,19 @@
   <aside class="tip">Conforme conserva las formas (Mercator, UTM). Equivalente conserva las áreas (Mollweide). Equidistante conserva las distancias. Ninguna proyección conserva todo a la vez.</aside>
 </section>
 
-<!-- 9 -->
+<!-- 12 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 6</p><h2>¿Qué es más grande, Groenlandia o Colombia?</h2></div>
+  <ol class="pasos">
+    <li>Con <code>Paises_Mundo</code>, cambien el SRC del proyecto a <b>EPSG:3857</b> (Mercator) y miren Groenlandia.</li>
+    <li>Cámbienlo a <b>ESRI:54009</b> (Mollweide, equivalente) y miren de nuevo.</li>
+    <li>Campo virtual <code>km2_mercator</code> = <code>area(transform($geometry,'EPSG:4326','EPSG:3857'))/1000000</code></li>
+    <li>Campo virtual <code>km2_real</code> = <code>area(transform($geometry,'EPSG:4326','ESRI:54009'))/1000000</code>. Comparen Groenlandia y Colombia.</li>
+  </ol>
+  <aside class="tip">Mercator agranda los países cercanos a los polos. Compruébelo en la página thetruesize.com, arrastrando Groenlandia hasta Colombia. Practíquelo en QGIS con el ejercicio 6.</aside>
+</section>
+
+<!-- 13 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">UTM y el Origen Nacional</p><h2>Coordenadas planas: todo en metros</h2></div>
   <div class="fila centro">
@@ -162,7 +221,23 @@
   <aside class="tip">UTM divide el mundo en 60 zonas de 6° y usa metros. Colombia está en las zonas 17, 18 y 19; Manizales en la 18 Norte (EPSG:32618). El sistema oficial de coordenadas planas de Colombia es el Origen Nacional (EPSG:9377).</aside>
 </section>
 
-<!-- 10 -->
+<!-- 14 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Sistemas de referencia en Colombia</p><h2>Los códigos EPSG que van a ver</h2></div>
+  <table class="t">
+    <tr><th style="width:16%">EPSG</th><th>Nombre</th><th style="width:16%">Unidades</th><th style="width:30%">Uso</th></tr>
+    <tr><td><b>4326</b></td><td>WGS 84</td><td>Grados</td><td>GPS, datos mundiales</td></tr>
+    <tr><td><b>4686</b></td><td>MAGNA-SIRGAS</td><td>Grados</td><td>Marco oficial de Colombia</td></tr>
+    <tr class="marca"><td><b>9377</b></td><td>MAGNA-SIRGAS 2018 / Origen-Nacional</td><td>Metros</td><td>Coordenadas planas oficiales (desde 2020)</td></tr>
+    <tr><td><b>3116</b></td><td>MAGNA-SIRGAS / Colombia Bogotá</td><td>Metros</td><td>Cartografía anterior a 2020</td></tr>
+    <tr><td><b>32618</b></td><td>WGS 84 / UTM zona 18N</td><td>Metros</td><td>Proyectos internacionales</td></tr>
+    <tr><td><b>3857</b></td><td>Pseudo-Mercator</td><td>Metros*</td><td>Mapas web (Google, OSM)</td></tr>
+  </table>
+  <p class="chica">* En 3857 los metros se deforman lejos del Ecuador: no se usa para medir.</p>
+  <aside class="tip">Antes de 2020, Colombia usaba cinco orígenes Gauss-Krüger (Oeste Oeste, Oeste, Bogotá, Este Central y Este). Por eso muchas capas antiguas vienen en EPSG:3116. Algunas ciudades, como Manizales, tienen además un sistema cartesiano local propio.</aside>
+</section>
+
+<!-- 15 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Cuidado en QGIS</p><h2>Asignar no es lo mismo que reproyectar</h2></div>
   <table class="t">
@@ -175,19 +250,7 @@
   <aside class="tip">Asignar SRC = cambiar la etiqueta (los números no cambian). Reproyectar = recalcular los números (Exportar › Guardar objetos como). Para medir distancias y áreas, reproyecte siempre a EPSG:9377.</aside>
 </section>
 
-<!-- 11 -->
-<section class="diapo practica">
-  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 6</p><h2>¿Qué es más grande, Groenlandia o Colombia?</h2></div>
-  <ol class="pasos">
-    <li>Con <code>Paises_Mundo</code>, cambien el SRC del proyecto a <b>EPSG:3857</b> (Mercator) y miren Groenlandia.</li>
-    <li>Cámbienlo a <b>ESRI:54009</b> (Mollweide, equivalente) y miren de nuevo.</li>
-    <li>Campo virtual <code>km2_mercator</code> = <code>area(transform($geometry,'EPSG:4326','EPSG:3857'))/1000000</code></li>
-    <li>Campo virtual <code>km2_real</code> = <code>area(transform($geometry,'EPSG:4326','ESRI:54009'))/1000000</code>. Comparen Groenlandia y Colombia.</li>
-  </ol>
-  <aside class="tip">Mercator agranda los países cercanos a los polos. Compruébelo en la página thetruesize.com, arrastrando Groenlandia hasta Colombia. Practíquelo en QGIS con el ejercicio 6.</aside>
-</section>
-
-<!-- 12 -->
+<!-- 16 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 7</p><h2>¿En qué zona UTM estoy?</h2></div>
   <ol class="pasos">
@@ -199,7 +262,41 @@
   <aside class="tip">Las coordenadas UTM son números grandes porque se miden en metros desde un origen. En la zona 18 Norte, Manizales queda cerca de X = 440.000 m y Y = 560.000 m. Practíquelo en el ejercicio 7.</aside>
 </section>
 
-<!-- 13 -->
+<!-- 17 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Georreferenciación</p><h2>Darle coordenadas a una imagen</h2></div>
+  <div class="fila centro">
+    <svg width="660" height="380" viewBox="0 0 660 380" aria-label="Puntos de control entre una imagen escaneada y el mapa">
+      <rect x="10" y="40" width="260" height="300" rx="10" fill="#f1e3d3" stroke="#a8531a" stroke-width="3"/>
+      <rect x="390" y="40" width="260" height="300" rx="10" fill="#e6ecea" stroke="#1f7a72" stroke-width="3"/>
+      <path d="M50 300 L120 90 L230 140 L200 290 Z" fill="none" stroke="#a8531a" stroke-width="3"/>
+      <path d="M430 290 L500 80 L610 130 L585 280 Z" fill="none" stroke="#1f7a72" stroke-width="3"/>
+      <g fill="#12303a"><circle cx="120" cy="90" r="9"/><circle cx="230" cy="140" r="9"/><circle cx="50" cy="300" r="9"/><circle cx="500" cy="80" r="9"/><circle cx="610" cy="130" r="9"/><circle cx="430" cy="290" r="9"/></g>
+      <g stroke="#12303a" stroke-width="2" stroke-dasharray="8 6"><path d="M128 90 H492"/><path d="M238 140 H602"/><path d="M58 300 H422"/></g>
+      <g font-family="Segoe UI, Arial" font-size="20" font-weight="700" text-anchor="middle"><text x="140" y="28" fill="#a8531a">Plano escaneado</text><text x="520" y="28" fill="#1f7a72">Mapa con coordenadas</text></g>
+    </svg>
+    <div class="col f1">
+      <p>Un plano escaneado o una foto aérea no sabe dónde está.</p>
+      <p><b>Georreferenciar</b> es asignarle coordenadas con <b>puntos de control</b>: lugares que se reconocen en la imagen y en el mapa (esquinas, cruces de vías).</p>
+      <p class="chica">Mínimo 3 puntos, mejor 6 o más, repartidos por toda la imagen.</p>
+    </div>
+  </div>
+  <aside class="tip">El resultado se guarda como un GeoTIFF o con un archivo de mundo (.tfw, .pgw) que dice dónde va la imagen. La calidad se mide con el error medio cuadrático (RMS): mientras más bajo, mejor encaja la imagen.</aside>
+</section>
+
+<!-- 18 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 13</p><h2>Georreferenciar un plano de Manizales</h2></div>
+  <ol class="pasos">
+    <li>Cargar <code>comunas</code> (datos_reales) como referencia, con el proyecto en <b>EPSG:9377</b>.</li>
+    <li><b>Capa › Georreferenciador</b> › abrir <code>plano_manizales_sin_coordenadas.png</code> (datos_practica).</li>
+    <li>Herramienta <b>Añadir punto</b>: clic en una esquina del plano › <b>Desde lienzo del mapa</b> › clic en la misma esquina de las comunas. Repetir con 6 puntos.</li>
+    <li>Configuración: transformación <b>Polinomial 1</b>, SRC <b>EPSG:9377</b> › <b>Iniciar georreferenciado</b>.</li>
+  </ol>
+  <aside class="tip">Elija puntos fáciles de reconocer en los dos lados: puntas de comunas, cruces de límites. Si una columna de error (residual) sale muy alta, ese punto quedó mal: bórrelo y vuelva a marcarlo.</aside>
+</section>
+
+<!-- 19 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Escala</p><h2>La escala relaciona el mapa con la realidad</h2></div>
   <div class="fila centro">
@@ -219,7 +316,7 @@
   <aside class="tip">Distancia real = distancia en el mapa × denominador de la escala. Ejemplo en 1:50.000: 2 cm × 50.000 = 100.000 cm = 1 km.</aside>
 </section>
 
-<!-- 14 -->
+<!-- 20 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Ejemplos resueltos · en casa: ejercicio 8</p><h2>Calcular con la escala</h2></div>
   <ol class="pasos">
@@ -231,7 +328,18 @@
   <aside class="tip">Para convertir unidades: de centímetros a metros se divide entre 100, y de metros a kilómetros entre 1.000. Practique con el ejercicio 8.</aside>
 </section>
 
-<!-- 15 -->
+<!-- 21 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Escala gráfica y generalización</p><h2>Al cambiar la escala, cambia el mapa</h2></div>
+  <div class="rejilla2">
+    <div class="tarjeta top"><h3>Numérica o gráfica</h3>1:25.000 deja de ser cierta si el mapa se imprime más grande o más pequeño.<br>La <b>barra de escala gráfica</b> crece y se encoge con el mapa: <b>siempre</b> es correcta.</div>
+    <div class="tarjeta verde"><h3>Generalización</h3>Al pasar a escala más pequeña se <b>simplifica</b>: las curvas se suavizan, los objetos pequeños desaparecen o se agrupan, un polígono se vuelve punto.</div>
+  </div>
+  <div class="destacado">Un dato capturado a 1:100.000 <b>no gana detalle</b> por hacerle zoom en el SIG.</div>
+  <aside class="tip">Por eso cada dato debe decir a qué escala se capturó: es parte de sus metadatos. Usar un dato a una escala mucho más grande que la de captura produce errores de ubicación.</aside>
+</section>
+
+<!-- 22 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">Vector y ráster</p><h2>Ventajas y desventajas</h2></div>
   <table class="t">
@@ -246,7 +354,7 @@
   <aside class="tip">Vector: preciso y liviano, ideal para objetos con bordes (predios, vías). Ráster: simple para superponer capas y hacer cálculos, ideal para fenómenos continuos (altura, lluvia).</aside>
 </section>
 
-<!-- 16 -->
+<!-- 23 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">El dato geográfico</p><h2>Tres componentes: dónde, qué y cuándo</h2></div>
   <div class="rejilla3">
@@ -258,7 +366,7 @@
   <aside class="tip">Espacial = dónde; temático = qué; temporal = cuándo. Un caso de dengue tiene una dirección (espacial), un tipo de caso (temático) y una fecha (temporal).</aside>
 </section>
 
-<!-- 17 -->
+<!-- 24 -->
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 9</p><h2>Las tres caras de un dato</h2></div>
   <div class="rejilla3">
@@ -266,8 +374,47 @@
     <div class="tarjeta top"><h3>Temático</h3>Sus atributos en la tabla</div>
     <div class="tarjeta top"><h3>Temporal</h3>El campo <code>fecha</code>: filtro <code>month("fecha") = 3</code></div>
   </div>
-  <div class="destacado" style="background:#1c4350">Tarea: presentar el <b>Cuestionario 3</b> en la plataforma de la universidad · cuadro comparativo de <b>geoportales</b></div>
   <aside class="tip">El filtro month("fecha") = 3 deja solo los registros de marzo. Practíquelo en el ejercicio 9 de la página del curso.</aside>
+</section>
+
+<!-- 25 -->
+<section class="diapo acento">
+  <div class="cabeza"><p class="ceja">Actividad guiada · individual · se entrega en el módulo</p><h2>Mis lugares en coordenadas</h2></div>
+  <div class="rejilla2">
+    <div class="col">
+      <ol style="font-size:27px">
+        <li>Tabla con 5 lugares de Manizales y sus coordenadas</li>
+        <li>Cargarla en QGIS (EPSG:4326)</li>
+        <li>Reproyectar a EPSG:9377 y calcular X, Y en metros</li>
+        <li>Convertir una coordenada a grados, minutos y segundos</li>
+        <li>Medir una distancia en metros</li>
+        <li>Mapa con todos sus elementos</li>
+        <li>Responder 5 preguntas</li>
+      </ol>
+    </div>
+    <div class="col">
+      <div class="tarjeta" style="color:#2f3b40"><h3>Entrega</h3>Un solo PDF: <code>Apellido_Nombre_Actividad_S2.pdf</code><br>Se sube en el <b>módulo de la universidad</b>.</div>
+      <div class="tarjeta" style="color:#2f3b40"><h3>Instrucciones completas</h3>Página del curso › <b>Actividad guiada</b>, paso a paso y con la rúbrica.</div>
+    </div>
+  </div>
+  <aside class="tip">Use lugares públicos (la universidad, un parque, un hospital) si no quiere compartir la ubicación de su casa. Siga la guía de la página del curso paso a paso: cada paso dice qué captura de pantalla debe ir en el PDF.</aside>
+</section>
+
+<!-- 26 -->
+<section class="diapo oscura">
+  <div class="cabeza"><p class="ceja">Repaso</p><h2>Lo que deben recordar para el Cuestionario 3</h2></div>
+  <ul style="font-size:27px">
+    <li>Marco de referencia de Colombia: <b>MAGNA-SIRGAS</b>.</li>
+    <li>Pasar meridianos y paralelos a un plano = <b>proyección</b>.</li>
+    <li>Proyección <b>equivalente</b> conserva la superficie; conforme, la forma; equidistante, la distancia.</li>
+    <li>UTM: coordenadas en <b>metros</b>.</li>
+    <li>1:2.500 = <b>gran escala</b>.</li>
+    <li>Componentes del dato: <b>espacial, temático y temporal</b>.</li>
+    <li>Vector: <b>puntos, líneas y polígonos</b>; ventaja: buena representación. Línea = 2 o más vértices.</li>
+    <li>Atributos vectoriales: automáticos o del usuario.</li>
+  </ul>
+  <div class="destacado" style="background:#1c4350">Tarea: <b>Cuestionario 3</b> en la plataforma · <b>actividad guiada</b> en el módulo · ejercicios 5 a 9, 12 y 13</div>
+  <aside class="tip">Antes del cuestionario repase las diapositivas marcadas con «CUESTIONARIO 3» y practique los ejercicios de la sesión 2 en la página del curso.</aside>
 </section>
 
 </div></div>
