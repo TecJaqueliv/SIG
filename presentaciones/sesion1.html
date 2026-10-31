@@ -285,12 +285,12 @@
 <section class="diapo practica">
   <div class="cabeza"><p class="ceja">Demostración en QGIS</p><h2>Dibujar un punto, una línea y un polígono</h2></div>
   <ol class="pasos">
-    <li>Mapa base: Navegador › <b>Teselas XYZ</b> › doble clic en <b>OpenStreetMap</b>.</li>
+    <li>Mapa base: Navegador › <b>Teselas XYZ</b> (o <b>XYZ Tiles</b>) › doble clic en <b>OpenStreetMap</b>.</li>
     <li><b>Capa › Crear capa › Nueva capa GeoPackage</b>: tipo Punto, SRC EPSG:9377, campo <code>nombre</code>.</li>
     <li>Lápiz de edición › añadir un punto en la Universidad de Manizales: <b>1 vértice</b>.</li>
     <li>Repetir con una capa de línea (una calle: <b>2 o más vértices</b>) y una de polígono (una manzana: <b>3 o más, cerrado</b>).</li>
   </ol>
-  <aside class="tip">Digitalizar es dibujar objetos sobre un mapa o una imagen. Al terminar cada objeto, QGIS pide sus atributos: esos son atributos definidos por el usuario. No olvide guardar la edición antes de apagar el lápiz.</aside>
+  <aside class="tip">Según la versión de QGIS la carpeta se llama «Teselas XYZ» o «XYZ Tiles»: es la misma. Si no ve el Navegador: Ver › Paneles › Navegador (Ctrl + 2). Si la carpeta está vacía: clic derecho › Nueva conexión, nombre OpenStreetMap y URL https://tile.openstreetmap.org/{z}/{x}/{y}.png.<br><br>Digitalizar es dibujar objetos sobre un mapa o una imagen. Al terminar cada objeto, QGIS pide sus atributos: esos son atributos definidos por el usuario. No olvide guardar la edición antes de apagar el lápiz.</aside>
 </section>
 
 <!-- 12 -->
