@@ -83,7 +83,7 @@ table.t tr.marca { background: #f1e3d3; }
 
 /* controles */
 #barra { position: fixed; left: 0; bottom: 0; height: 5px; background: var(--acento-claro); transition: width .2s; z-index: 5; }
-#controles { position: fixed; right: 14px; bottom: 12px; display: flex; gap: 8px; align-items: center; z-index: 6; font: 14px var(--sans); color: #b9ccd0; opacity: .25; transition: opacity .2s; }
+#controles { position: fixed; right: 14px; bottom: 12px; display: flex; gap: 8px; align-items: center; z-index: 6; font: 14px var(--sans); color: #fff; background: rgba(18,48,58,.88); padding: 6px; border-radius: 10px; opacity: .8; transition: opacity .2s; }
 #controles:hover { opacity: 1; }
 #controles button, #controles a { background: rgba(255,255,255,.12); color: #fff; border: 0; border-radius: 6px; padding: 6px 10px; cursor: pointer; font: 14px var(--sans); text-decoration: none; }
 .diapo aside.tip { display: none; }
@@ -96,7 +96,8 @@ table.t tr.marca { background: #f1e3d3; }
 #panel-tip b { color: #8a6100; font-size: 19px; }
 #panel-tip p { margin: 6px 0 0; max-width: 1100px; }
 #cerrar-tip { position: absolute; right: 16px; top: 12px; border: 0; background: transparent; font: 22px var(--sans); cursor: pointer; color: #5e676c; }
-#btn-pdf { background: #f6c945; color: #12303a; font-weight: 700; }
+#btn-pdf { position: fixed; top: 14px; right: 14px; z-index: 8; border: 2px solid #fff; border-radius: 99px; padding: 10px 18px; background: var(--verde); color: #fff; font: 700 16px var(--sans); cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+#btn-pdf:hover { filter: brightness(1.06); }
 .diapo.hoja-tip { background: #fff8dc; border-top: 14px solid #f6c945; }
 .diapo.hoja-tip .ceja { color: #8a6100; }
 
@@ -110,5 +111,5 @@ table.t tr.marca { background: #f1e3d3; }
   #lienzo { transform: none !important; height: auto; }
   .diapo, .diapo.activa { display: flex; position: relative; width: 1600px; height: 900px; break-after: page; page-break-after: always; }
   .diapo:last-child { break-after: auto; page-break-after: auto; }
-  #barra, #controles, #btn-tip, #panel-tip { display: none !important; }
+  #barra, #controles, #btn-tip, #btn-pdf, #panel-tip { display: none !important; }
 }
