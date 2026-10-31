@@ -1,7 +1,18 @@
-// Motor de diapositivas: flechas o espacio = avanzar, F = pantalla completa, T o 💡 = tip con más teoría.
+// Motor de diapositivas: flechas o espacio = avanzar, F = pantalla completa, T o 💡 = tip con más teoría, P = descargar PDF.
 (function () {
   const lienzo = document.getElementById("lienzo");
   const diapos = [...lienzo.querySelectorAll(".diapo")];
+
+  // Para el PDF: cada tip va en una hoja propia justo después de su diapositiva (en pantalla no se ven).
+  diapos.forEach((d) => {
+    const tip = d.querySelector("aside.tip");
+    if (!tip) return;
+    const titulo = d.querySelector("h1, h2");
+    const hoja = document.createElement("section");
+    hoja.className = "diapo hoja-tip";
+    hoja.innerHTML = `<div class="cabeza"><p class="ceja">💡 Tip</p><h2>${titulo ? titulo.innerHTML : ""}</h2></div><p>${tip.innerHTML}</p>`;
+    d.after(hoja);
+  });
   const barra = document.getElementById("barra");
   const contador = document.getElementById("contador");
   const panel = document.getElementById("panel-tip");
@@ -47,6 +58,7 @@
     else if (e.key === "End") ir(diapos.length - 1);
     else if (e.key === "f" || e.key === "F") pantallaCompleta();
     else if (e.key === "t" || e.key === "T") alternarTip();
+    else if ((e.key === "p" || e.key === "P") && !e.ctrlKey && !e.metaKey) window.print();
     else if (e.key === "Escape" && panel.classList.contains("visible")) alternarTip();
   });
   let x0 = null;
@@ -60,6 +72,7 @@
   document.getElementById("ant").onclick = () => ir(i - 1);
   document.getElementById("sig").onclick = () => ir(i + 1);
   document.getElementById("btn-full").onclick = pantallaCompleta;
+  document.getElementById("btn-pdf").onclick = () => window.print();
   botonTip.onclick = alternarTip;
   window.addEventListener("resize", ajustar);
 

@@ -96,3 +96,19 @@ table.t tr.marca { background: #f1e3d3; }
 #panel-tip b { color: #8a6100; font-size: 19px; }
 #panel-tip p { margin: 6px 0 0; max-width: 1100px; }
 #cerrar-tip { position: absolute; right: 16px; top: 12px; border: 0; background: transparent; font: 22px var(--sans); cursor: pointer; color: #5e676c; }
+#btn-pdf { background: #f6c945; color: #12303a; font-weight: 700; }
+.diapo.hoja-tip { background: #fff8dc; border-top: 14px solid #f6c945; }
+.diapo.hoja-tip .ceja { color: #8a6100; }
+
+/* PDF: el botón «Descargar PDF» abre la impresión; una diapositiva por hoja de 1600 × 900, con su tip en la hoja siguiente */
+@media screen { .diapo.hoja-tip { display: none !important; } }
+@media print {
+  @page { size: 1600px 900px; margin: 0; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { height: auto; overflow: visible; background: #fff; }
+  #escenario { position: static; display: block; }
+  #lienzo { transform: none !important; height: auto; }
+  .diapo, .diapo.activa { display: flex; position: relative; width: 1600px; height: 900px; break-after: page; page-break-after: always; }
+  .diapo:last-child { break-after: auto; page-break-after: auto; }
+  #barra, #controles, #btn-tip, #panel-tip { display: none !important; }
+}
