@@ -36,8 +36,8 @@
     <tr class="marca"><td>0:45</td><td>Fuentes y formatos de datos · geoportal de Manizales</td><td>Teoría y demostración</td></tr>
     <tr><td>1:15</td><td>Descanso</td><td></td></tr>
     <tr class="marca"><td>1:25</td><td>Discreto y continuo, geometrías, escala</td><td>Teoría y demostración</td></tr>
-    <tr class="marca"><td>2:05</td><td>Tablas de atributos y ráster</td><td>Teoría y demostración</td></tr>
-    <tr><td>2:45</td><td>Repaso para el Cuestionario 1</td><td>Repaso</td></tr>
+    <tr class="marca"><td>2:05</td><td>Tablas de atributos</td><td>Teoría y demostración</td></tr>
+    <tr><td>2:45</td><td>Repaso de lo visto</td><td>Repaso</td></tr>
   </table>
 </section>
 
@@ -367,66 +367,19 @@
   <aside class="tip">La calculadora de campos (icono del ábaco) crea atributos con fórmulas: $area calcula el área y num_points($geometry) cuenta los vértices de cada objeto. Practíquelo en el ejercicio 3.</aside>
 </section>
 
-<!-- 16 -->
-<section class="diapo">
-  <div class="cabeza"><p class="ceja">Modelo ráster</p><h2>Una malla de celdas iguales, cada una con un valor</h2></div>
-  <div class="fila centro">
-    <svg width="460" height="322" viewBox="0 0 360 252" aria-label="Malla ráster con valores de elevación">
-      <rect width="360" height="252" fill="#eadfc9"/>
-      <g fill="#c99a6b"><rect x="72" y="36" width="216" height="180"/><rect x="36" y="72" width="36" height="108"/><rect x="288" y="72" width="36" height="72"/></g>
-      <g fill="#7a4320"><rect x="144" y="72" width="72" height="108"/><rect x="216" y="108" width="36" height="72"/></g>
-      <path d="M36 0V252M72 0V252M108 0V252M144 0V252M180 0V252M216 0V252M252 0V252M288 0V252M324 0V252M0 36H360M0 72H360M0 108H360M0 144H360M0 180H360M0 216H360" stroke="#fbf8f2" stroke-width="2"/>
-    </svg>
-    <div class="col f1">
-      <p>• <b>Cada celda (píxel) tiene un valor</b>: altura, temperatura, color.</p>
-      <p>• Todas las celdas son <b>del mismo tamaño</b>: la <b>resolución</b>.</p>
-      <p>• Los valores vienen del sensor o del cálculo, <b>no los define el usuario</b>.</p>
-      <p>• Para manejar cientos de imágenes juntas: <b>mosaic dataset</b> (ArcGIS).</p>
-    </div>
-  </div>
-  <p><span class="examen">CUESTIONARIO 1 · P10, P11, P14, P16</span></p>
-  <aside class="tip">Resolución = tamaño de la celda. Una imagen de 10 m tiene celdas de 10 × 10 m: tiene más detalle que una de 30 m, pero pesa más. El «mosaic dataset» es una estructura de ArcGIS para manejar muchas imágenes ráster juntas.</aside>
-</section>
-
-<!-- 16b -->
-<section class="diapo practica">
-  <div class="cabeza"><p class="ceja">Demostración en QGIS · un ráster real</p><h2>Manizales en 2014 y en 2021</h2></div>
-  <ol class="pasos">
-    <li>En la conexión de la Alcaldía, abrir la carpeta <b>Ortofotomapas</b>.</li>
-    <li>Cargar <code>2020_ORTOFOLIDAR_2014</code> y <code>2020_ORTOFOLIDAR_2021</code>.</li>
-    <li>Acercar hasta ver los píxeles: ese tamaño es la <b>resolución</b>.</li>
-    <li>Apagar y prender la capa de arriba: ¿qué cambió en la ciudad?</li>
-  </ol>
-  <div class="destacado">Una ortofoto es un ráster: cada píxel guarda un color. Comparar dos fechas usa el componente <b>temporal</b> del dato.</div>
-  <aside class="tip">Una ortofoto es una fotografía aérea corregida para que se pueda medir sobre ella como en un mapa. Comparar el mismo lugar en dos fechas es usar el componente temporal del dato.</aside>
-</section>
-
-<!-- 17 -->
-<section class="diapo practica">
-  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 4</p><h2>Píxel por píxel</h2></div>
-  <ol class="pasos">
-    <li>Exporten <code>comunas</code> a EPSG:9377 (clic derecho › Exportar › Guardar objetos como).</li>
-    <li><b>Ráster › Conversión › Rasterizar</b>. Campo <code>nro</code>, tamaño de celda <b>50 m</b>.</li>
-    <li>Repitan con <b>500 m</b> y comparen.</li>
-    <li>Con <b>Identificar</b>, hagan clic en varias celdas: ¿qué valor tiene cada una?</li>
-  </ol>
-  <aside class="tip">Rasterizar convierte un vector en ráster: cada celda toma el valor del objeto que la cubre. Si el valor NoData coincide con un valor real (por ejemplo 1), esas celdas desaparecen. Practíquelo en el ejercicio 4.</aside>
-</section>
-
 <!-- 18 -->
 <section class="diapo oscura">
-  <div class="cabeza"><p class="ceja">Repaso</p><h2>Lo que deben recordar para el Cuestionario 1</h2></div>
+  <div class="cabeza"><p class="ceja">Repaso</p><h2>Lo que vimos hoy</h2></div>
   <ul style="font-size:28px">
     <li>Un dato espacial incluye la <b>ubicación</b>.</li>
     <li>Continuo = se puede promediar (temperatura, lluvia, pendiente, profundidad).</li>
     <li>Punto: 1 vértice · <b>línea: 2 o más</b> · polígono: 3 o más, cerrado.</li>
     <li>Escala grande → polígonos · escala pequeña → puntos y líneas.</li>
     <li>Una fila de la tabla = <b>un objeto</b>, nunca un vértice.</li>
-    <li>Atributos vectoriales: automáticos o del usuario. Atributos ráster: <b>no</b> los define el usuario.</li>
-    <li>Ráster: grilla de celdas iguales, cada una con un valor · mosaic dataset.</li>
+    <li>Atributos vectoriales: automáticos o del usuario.</li>
   </ul>
-  <div class="destacado" style="background:#1c4350">Tarea: presentar el <b>Cuestionario 1</b> en la plataforma · practicar los ejercicios 1 a 4 en la página · ver el video <b>«Videoclase - Fundamentos SIG»</b></div>
-  <aside class="tip">Antes del cuestionario, repase las diapositivas marcadas con «CUESTIONARIO 1» y practique los ejercicios 1 a 4 de la página del curso.</aside>
+  <div class="destacado" style="background:#1c4350">Próxima sesión: empezamos con el <b>modelo ráster</b>, lo último que falta para el <b>Cuestionario 1</b> · practiquen los ejercicios 1 a 3 · vean el video <b>«Videoclase - Fundamentos SIG»</b></div>
+  <aside class="tip">Repase las diapositivas marcadas con «CUESTIONARIO 1» y practique los ejercicios 1 a 3 de la página del curso. El modelo ráster (ejercicio 4) se ve al comienzo de la sesión 2.</aside>
 </section>
 
 </div></div>

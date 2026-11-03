@@ -23,7 +23,7 @@
   </svg>
   <p class="ceja">Fundamentos de SIG · Sesión 2</p>
   <h1 style="max-width:820px">¿Dónde está el dato?</h1>
-  <p class="chica" style="font-size:28px;max-width:760px">Coordenadas, datum, MAGNA-SIRGAS, proyecciones, UTM y escala</p>
+  <p class="chica" style="font-size:28px;max-width:760px">Ráster, coordenadas, datum, MAGNA-SIRGAS, proyecciones, UTM y escala</p>
 </section>
 
 <!-- 2 -->
@@ -31,12 +31,13 @@
   <div class="cabeza"><p class="ceja">Agenda · 3 horas</p><h2>La ruta de hoy</h2></div>
   <table class="t">
     <tr><th style="width:18%">Hora</th><th>Tema</th><th style="width:28%">Formato</th></tr>
-    <tr><td>0:00</td><td>Repaso · forma de la Tierra, datum, coordenadas</td><td>Teoría y demostración</td></tr>
-    <tr class="marca"><td>0:45</td><td>Proyecciones · ¿Groenlandia o Colombia?</td><td>Teoría y demostración</td></tr>
-    <tr><td>1:15</td><td>Descanso</td><td></td></tr>
-    <tr class="marca"><td>1:25</td><td>UTM, sistemas de Colombia, georreferenciación</td><td>Teoría y demostración</td></tr>
-    <tr><td>2:15</td><td>Escala, vector y ráster, componentes del dato</td><td>Teoría</td></tr>
-    <tr class="marca"><td>2:40</td><td>Actividad guiada y repaso del Cuestionario 3</td><td>Actividad</td></tr>
+    <tr class="marca"><td>0:00</td><td>Repaso · modelo ráster · ortofotos · rasterizar</td><td>Teoría y demostración</td></tr>
+    <tr><td>0:40</td><td>Vector o ráster · repaso del Cuestionario 1</td><td>Teoría</td></tr>
+    <tr class="marca"><td>0:50</td><td>Forma de la Tierra, datum, coordenadas</td><td>Teoría y demostración</td></tr>
+    <tr><td>1:30</td><td>Descanso</td><td></td></tr>
+    <tr class="marca"><td>1:40</td><td>Proyecciones, UTM, sistemas de Colombia</td><td>Teoría y demostración</td></tr>
+    <tr class="marca"><td>2:20</td><td>Georreferenciación, escala, componentes del dato</td><td>Teoría y demostración</td></tr>
+    <tr><td>2:50</td><td>Actividad guiada y repaso del Cuestionario 3</td><td>Actividad</td></tr>
   </table>
 </section>
 
@@ -47,10 +48,87 @@
     <div class="tarjeta top"><h3>Representar</h3>Discreto → vector (punto, línea, polígono). Continuo → ráster.</div>
     <div class="tarjeta top"><h3>Escala</h3>Grande = mucho detalle de un área pequeña → polígonos.</div>
     <div class="tarjeta top"><h3>Tabla de atributos</h3>Una fila = un objeto. Atributos automáticos o del usuario.</div>
-    <div class="tarjeta top"><h3>Ráster</h3>Celdas iguales, cada una con un valor. Resolución = tamaño de celda.</div>
+    <div class="tarjeta top"><h3>Vector</h3>Punto: 1 vértice. Línea: 2 o más. Polígono: 3 o más, cerrado.</div>
   </div>
-  <div class="destacado">Hoy: <b>¿dónde está cada dato sobre la Tierra?</b> Sin esto, las capas no coinciden y las medidas salen mal.</div>
+  <div class="destacado">Hoy: primero el <b>modelo ráster</b>, lo que falta del Cuestionario 1. Luego, <b>¿dónde está cada dato sobre la Tierra?</b></div>
   <aside class="tip">Si tiene dudas de la sesión 1, repase la presentación y los ejercicios 1 a 4 de la página del curso antes de seguir.</aside>
+</section>
+
+<!-- r1 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Modelo ráster</p><h2>Una malla de celdas iguales, cada una con un valor</h2></div>
+  <div class="fila centro">
+    <svg width="460" height="322" viewBox="0 0 360 252" aria-label="Malla ráster con valores de elevación">
+      <rect width="360" height="252" fill="#eadfc9"/>
+      <g fill="#c99a6b"><rect x="72" y="36" width="216" height="180"/><rect x="36" y="72" width="36" height="108"/><rect x="288" y="72" width="36" height="72"/></g>
+      <g fill="#7a4320"><rect x="144" y="72" width="72" height="108"/><rect x="216" y="108" width="36" height="72"/></g>
+      <path d="M36 0V252M72 0V252M108 0V252M144 0V252M180 0V252M216 0V252M252 0V252M288 0V252M324 0V252M0 36H360M0 72H360M0 108H360M0 144H360M0 180H360M0 216H360" stroke="#fbf8f2" stroke-width="2"/>
+    </svg>
+    <div class="col f1">
+      <p>• <b>Cada celda (píxel) tiene un valor</b>: altura, temperatura, color.</p>
+      <p>• Todas las celdas son <b>del mismo tamaño</b>: la <b>resolución</b>.</p>
+      <p>• Los valores vienen del sensor o del cálculo, <b>no los define el usuario</b>.</p>
+      <p>• Para manejar cientos de imágenes juntas: <b>mosaic dataset</b> (ArcGIS).</p>
+    </div>
+  </div>
+  <p><span class="examen">CUESTIONARIO 1 · P10, P11, P14, P16</span></p>
+  <aside class="tip">Resolución = tamaño de la celda. Una imagen de 10 m tiene celdas de 10 × 10 m: tiene más detalle que una de 30 m, pero pesa más. El «mosaic dataset» es una estructura de ArcGIS para manejar muchas imágenes ráster juntas.</aside>
+</section>
+
+<!-- r2 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · un ráster real</p><h2>Manizales en 2014 y en 2021</h2></div>
+  <ol class="pasos">
+    <li>En la conexión de la Alcaldía, abrir la carpeta <b>Ortofotomapas</b>.</li>
+    <li>Cargar <code>2020_ORTOFOLIDAR_2014</code> y <code>2020_ORTOFOLIDAR_2021</code>.</li>
+    <li>Acercar hasta ver los píxeles: ese tamaño es la <b>resolución</b>.</li>
+    <li>Apagar y prender la capa de arriba: ¿qué cambió en la ciudad?</li>
+  </ol>
+  <div class="destacado">Una ortofoto es un ráster: cada píxel guarda un color. Comparar dos fechas usa el componente <b>temporal</b> del dato.</div>
+  <aside class="tip">Una ortofoto es una fotografía aérea corregida para que se pueda medir sobre ella como en un mapa. Comparar el mismo lugar en dos fechas es usar el componente temporal del dato.</aside>
+</section>
+
+<!-- r3 -->
+<section class="diapo practica">
+  <div class="cabeza"><p class="ceja">Demostración en QGIS · en casa: ejercicio 4</p><h2>Píxel por píxel</h2></div>
+  <ol class="pasos">
+    <li>Exporten <code>comunas</code> a EPSG:9377 (clic derecho › Exportar › Guardar objetos como).</li>
+    <li><b>Ráster › Conversión › Rasterizar</b>. Campo <code>nro</code>, tamaño de celda <b>50 m</b>.</li>
+    <li>Repitan con <b>500 m</b> y comparen.</li>
+    <li>Con <b>Identificar</b>, hagan clic en varias celdas: ¿qué valor tiene cada una?</li>
+  </ol>
+  <aside class="tip">Rasterizar convierte un vector en ráster: cada celda toma el valor del objeto que la cubre. Si el valor NoData coincide con un valor real (por ejemplo 1), esas celdas desaparecen. Practíquelo en el ejercicio 4.</aside>
+</section>
+
+<!-- 22 -->
+<section class="diapo">
+  <div class="cabeza"><p class="ceja">Vector y ráster</p><h2>Ventajas y desventajas</h2></div>
+  <table class="t">
+    <tr><th></th><th>Vector</th><th>Ráster</th></tr>
+    <tr><td><b>Representación gráfica</b></td><td>✔ Precisa, de buena calidad</td><td>Depende del tamaño de celda</td></tr>
+    <tr><td><b>Volumen de datos</b></td><td>✔ Compacto</td><td>Pesado</td></tr>
+    <tr><td><b>Superposición de capas</b></td><td>Compleja</td><td>✔ Simple</td></tr>
+    <tr><td><b>Costo de la tecnología</b></td><td>Mayor</td><td>✔ Menor</td></tr>
+    <tr><td><b>Mejor para</b></td><td>Objetos discretos: predios, vías</td><td>Fenómenos continuos: altura, lluvia</td></tr>
+  </table>
+  <p><span class="examen">CUESTIONARIO 3 · P6, P7</span>&nbsp; El vector define <b>puntos, líneas y polígonos</b>; su gran ventaja es la <b>buena representación de los datos</b>.</p>
+  <aside class="tip">Vector: preciso y liviano, ideal para objetos con bordes (predios, vías). Ráster: simple para superponer capas y hacer cálculos, ideal para fenómenos continuos (altura, lluvia).</aside>
+</section>
+
+<!-- r4 -->
+<section class="diapo oscura">
+  <div class="cabeza"><p class="ceja">Repaso · cierre de la sesión 1</p><h2>Lo que deben recordar para el Cuestionario 1</h2></div>
+  <ul style="font-size:28px">
+    <li>Un dato espacial incluye la <b>ubicación</b>.</li>
+    <li>Continuo = se puede promediar (temperatura, lluvia, pendiente, profundidad).</li>
+    <li>Punto: 1 vértice · <b>línea: 2 o más</b> · polígono: 3 o más, cerrado.</li>
+    <li>Escala grande → polígonos · escala pequeña → puntos y líneas.</li>
+    <li>Una fila de la tabla = <b>un objeto</b>, nunca un vértice.</li>
+    <li>Atributos vectoriales: automáticos o del usuario. Atributos ráster: <b>no</b> los define el usuario.</li>
+    <li>Ráster: grilla de celdas iguales, cada una con un valor · mosaic dataset.</li>
+  </ul>
+  <div class="destacado" style="background:#1c4350">Ya pueden presentar el <b>Cuestionario 1</b> en la plataforma · practiquen los ejercicios 1 a 4 en la página del curso</div>
+  <aside class="tip">Antes del cuestionario, repase las diapositivas marcadas con «CUESTIONARIO 1» y practique los ejercicios 1 a 4 de la página del curso.</aside>
 </section>
 
 <!-- 4 -->
@@ -339,21 +417,6 @@
   <aside class="tip">Por eso cada dato debe decir a qué escala se capturó: es parte de sus metadatos. Usar un dato a una escala mucho más grande que la de captura produce errores de ubicación.</aside>
 </section>
 
-<!-- 22 -->
-<section class="diapo">
-  <div class="cabeza"><p class="ceja">Vector y ráster</p><h2>Ventajas y desventajas</h2></div>
-  <table class="t">
-    <tr><th></th><th>Vector</th><th>Ráster</th></tr>
-    <tr><td><b>Representación gráfica</b></td><td>✔ Precisa, de buena calidad</td><td>Depende del tamaño de celda</td></tr>
-    <tr><td><b>Volumen de datos</b></td><td>✔ Compacto</td><td>Pesado</td></tr>
-    <tr><td><b>Superposición de capas</b></td><td>Compleja</td><td>✔ Simple</td></tr>
-    <tr><td><b>Costo de la tecnología</b></td><td>Mayor</td><td>✔ Menor</td></tr>
-    <tr><td><b>Mejor para</b></td><td>Objetos discretos: predios, vías</td><td>Fenómenos continuos: altura, lluvia</td></tr>
-  </table>
-  <p><span class="examen">CUESTIONARIO 3 · P6, P7</span>&nbsp; El vector define <b>puntos, líneas y polígonos</b>; su gran ventaja es la <b>buena representación de los datos</b>.</p>
-  <aside class="tip">Vector: preciso y liviano, ideal para objetos con bordes (predios, vías). Ráster: simple para superponer capas y hacer cálculos, ideal para fenómenos continuos (altura, lluvia).</aside>
-</section>
-
 <!-- 23 -->
 <section class="diapo">
   <div class="cabeza"><p class="ceja">El dato geográfico</p><h2>Tres componentes: dónde, qué y cuándo</h2></div>
@@ -413,7 +476,7 @@
     <li>Vector: <b>puntos, líneas y polígonos</b>; ventaja: buena representación. Línea = 2 o más vértices.</li>
     <li>Atributos vectoriales: automáticos o del usuario.</li>
   </ul>
-  <div class="destacado" style="background:#1c4350">Tarea: <b>Cuestionario 3</b> en la plataforma · <b>actividad guiada</b> en el módulo · ejercicios 5 a 9, 12 y 13</div>
+  <div class="destacado" style="background:#1c4350">Tarea: <b>Cuestionario 3</b> en la plataforma · <b>actividad guiada</b> en el módulo · ejercicios 4 a 9, 12 y 13</div>
   <aside class="tip">Antes del cuestionario repase las diapositivas marcadas con «CUESTIONARIO 3» y practique los ejercicios de la sesión 2 en la página del curso.</aside>
 </section>
 
