@@ -152,7 +152,7 @@
     <details><summary>Ver respuesta de la parte A</summary>
       <p>Vector: mejor representación gráfica y datos más compactos. Ráster: superposición más simple y tecnología más económica.</p>
     </details>
-    <p><b>Parte B.</b> Abra <code>casos_ficticios.geojson</code> (carpeta <code>datos_practica</code>). Identifique el componente espacial, el temático y el temporal. Luego filtre los casos de marzo: clic derecho › <b>Filtrar</b> › <code>month("fecha") = 3</code>.</p>
+    <p><b>Parte B.</b> Abra <code>casos_ficticios.geojson</code> (carpeta <code>datos_practica</code>). Identifique el componente espacial, el temático y el temporal. Luego filtre los casos de marzo: clic derecho › <b>Filtrar</b> › <code>"fecha" &gt;= '2026-03-01' AND "fecha" &lt; '2026-04-01'</code> (debe dejar 27 casos).</p>
     <details><summary>Ver respuesta de la parte B</summary>
       <p>Espacial: la ubicación del punto. Temático: los atributos del caso. Temporal: el campo <code>fecha</code>. Los componentes de los datos geográficos son <b>espacial, temático y temporal</b>.</p>
     </details>
@@ -255,7 +255,7 @@
       <li>Cargue <code>casos_ficticios.geojson</code> (carpeta <code>datos_practica</code>) y exporte la capa a EPSG:9377.</li>
       <li>Doble clic › <b>Simbología</b> › cambie «Símbolo único» por <b>Mapa de calor</b>. Radio: <b>300</b> metros.</li>
       <li>Pruebe con radios de 100 y 1.000. ¿Qué cambia?</li>
-      <li>Clic derecho › <b>Filtrar</b> › <code>month("fecha") = 3</code>. ¿Dónde se concentran los casos de marzo?</li>
+      <li>Clic derecho › <b>Filtrar</b> › <code>"fecha" &gt;= '2026-03-01' AND "fecha" &lt; '2026-04-01'</code>. ¿Dónde se concentran los casos de marzo?</li>
     </ol>
     <details><summary>Ver respuesta</summary>
       <p>Con radio pequeño se ven focos separados; con radio grande, una mancha general. En los datos ficticios hay dos focos principales. El filtro deja solo los casos de marzo y el mapa de calor se recalcula con ellos.</p>

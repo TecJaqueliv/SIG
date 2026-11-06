@@ -206,7 +206,7 @@
     <li>Cargar <code>casos_ficticios</code> (datos_practica). Son datos inventados para practicar.</li>
     <li>Doble clic › <b>Simbología</b> › tipo <b>Mapa de calor</b>. Radio: 300 m.</li>
     <li>Probar radios de 100 m y 1.000 m: el resultado cambia mucho.</li>
-    <li>Agregar el filtro <code>month("fecha") = 3</code>: el calor de marzo.</li>
+    <li>Agregar el filtro <code>"fecha" &gt;= '2026-03-01' AND "fecha" &lt; '2026-04-01'</code>: el calor de marzo.</li>
   </ol>
   <aside class="tip">El radio decide qué tan «suave» se ve el calor: un radio pequeño muestra puntos aislados y uno grande una mancha general. Siempre hay que decir qué radio se usó. Para obtener un ráster de densidad, use Procesos › Mapa de calor (estimación de densidad de núcleo).</aside>
 </section>
